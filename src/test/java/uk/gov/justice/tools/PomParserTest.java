@@ -6,6 +6,9 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 
 public class PomParserTest {
 
@@ -18,6 +21,6 @@ public class PomParserTest {
 
         String actualName = actualPomParser.parse(somePom);
 
-        assert actualName.equals("lifecycle-event-processor");
+        assertThat(actualName, is("lifecycle-event-processor"));
     }
 }

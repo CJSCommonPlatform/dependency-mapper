@@ -2,6 +2,8 @@ package uk.gov.justice.tools;
 
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.junit.Test;
+import uk.gov.justice.builder.Context;
+import uk.gov.justice.builder.ContextBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,14 +15,20 @@ import static org.junit.Assert.assertThat;
 public class PomParserTest {
 
     @Test
-    public void testParseNameFromPom() throws IOException, XmlPullParserException {
+    public void shouldParseNameAndVersionFromPom() throws IOException, XmlPullParserException {
         PomParser actualPomParser = new PomParser();
 
         ClassLoader classLoader = getClass().getClassLoader();
         File somePom = new File(classLoader.getResource("./root/pom.xml").getFile());
 
-        String actualName = actualPomParser.parse(somePom);
+        Context actualContext = actualPomParser.parse(somePom);
 
-        assertThat(actualName, is("lifecycle-event-processor"));
+        Context contextExpected = new ContextBuilder()
+                .withName("lifecycle-event-processor")
+                .withVersion("2.0.70-SNAPSHOT")
+                .build();
+
+        assertThat(actualContext, is(contextExpected));
     }
+
 }

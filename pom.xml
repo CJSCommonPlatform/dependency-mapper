@@ -8,12 +8,6 @@
   <name>dependency-mapper Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
-  <parent>
-    <groupId>uk.gov.justice</groupId>
-    <artifactId>maven-framework-parent-pom</artifactId>
-    <version>1.0.0</version>
-  </parent>
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

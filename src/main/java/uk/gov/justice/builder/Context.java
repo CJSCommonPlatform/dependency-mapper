@@ -39,14 +39,14 @@ public class Context {
 
         Context context = (Context) o;
 
-        if (name != null ? !name.equals(context.name) : context.name != null) return false;
+        if (!name.equals(context.name)) return false;
         return version != null ? version.equals(context.version) : context.version == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = name.hashCode();
         result = 31 * result + (version != null ? version.hashCode() : 0);
         return result;
     }

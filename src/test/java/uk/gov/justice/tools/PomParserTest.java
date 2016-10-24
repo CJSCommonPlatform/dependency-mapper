@@ -15,11 +15,34 @@ import static org.junit.Assert.assertThat;
 public class PomParserTest {
 
     @Test
-    public void shouldParseNameAndVersionFromPom() throws IOException, XmlPullParserException {
+    public void shouldParseNameFromPom() throws IOException, XmlPullParserException {
         PomParser actualPomParser = new PomParser();
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File somePom = new File(classLoader.getResource("./root/pom.xml").getFile());
+        File somePom = getFileFromTestResources();
+
+        Context actualContext = actualPomParser.parse(somePom);
+
+        assertThat(actualContext.getName(), is("lifecycle-event-processor"));
+    }
+
+
+    @Test
+    public void shouldParseVersionFromPom() throws IOException, XmlPullParserException {
+        PomParser actualPomParser = new PomParser();
+
+        File somePom = getFileFromTestResources();
+
+        Context actualContext = actualPomParser.parse(somePom);
+
+        assertThat(actualContext.getVersion(), is("2.0.70-SNAPSHOT"));
+    }
+
+
+    @Test
+    public void shouldParseNameAndVersionFromPomAndReturnContext() throws IOException, XmlPullParserException {
+        PomParser actualPomParser = new PomParser();
+
+        File somePom = getFileFromTestResources();
 
         Context actualContext = actualPomParser.parse(somePom);
 
@@ -30,5 +53,11 @@ public class PomParserTest {
 
         assertThat(actualContext, is(contextExpected));
     }
+
+    private File getFileFromTestResources() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return new File(classLoader.getResource("./root/pom.xml").getFile());
+    }
+
 
 }

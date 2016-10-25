@@ -10,10 +10,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import uk.gov.justice.builder.MicroService;
-import uk.gov.justice.builder.MicroServiceBuilder;
+import uk.gov.justice.builders.MicroService;
+import uk.gov.justice.builders.MicroServiceBuilder;
 
 public class PomParser {
 

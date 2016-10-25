@@ -1,8 +1,8 @@
 package uk.gov.justice.tools;
 
 import org.junit.Test;
-import uk.gov.justice.builder.MicroService;
-import uk.gov.justice.builder.MicroServiceBuilder;
+import uk.gov.justice.builders.MicroService;
+import uk.gov.justice.builders.MicroServiceBuilder;
 
 import java.io.File;
 import java.util.Arrays;

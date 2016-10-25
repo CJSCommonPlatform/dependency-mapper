@@ -13,6 +13,7 @@ import static org.junit.Assert.assertThat;
 public class PomParserTest {
 
         private static final String ROOT_FOLDER = "root";
+        private static final String BRANCH_FOLDER = "root/branch";
         private static final String FAULTY_FOLDER = "faulty";
 
     @Test
@@ -38,11 +39,11 @@ public class PomParserTest {
         assertThat(actualContext.getVersion(), is("2.0.70-SNAPSHOT"));
     }
 
-    //@Test
+    @Test
     public void shouldParseVersionFromParentInPomWhenVersionIsNotPresent() throws Exception {
         PomParser actualPomParser = new PomParser();
 
-        File somePom = getFileFromTestResources(FAULTY_FOLDER);
+        File somePom = getFileFromTestResources(BRANCH_FOLDER);
 
         Context actualContext = actualPomParser.parse(somePom);
 

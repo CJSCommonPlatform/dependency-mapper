@@ -3,25 +3,12 @@ package uk.gov.justice.tools;
 
 import java.io.File;
 
-public class PomParserException extends Exception{
+class PomParserException extends Exception {
+    static final String DEFAULT_MESSAGE = "An error occurred while processing a POM file, however neither file nor error was captured";
+    static final String ERROR_MESSAGE = "Error encountered when processing file ' %s ' --> %s";
 
-    public PomParserException(String message) {
-        super(message);
-    }
-
-    public PomParserException(File pomFile, String message, Throwable cause) {
-        super(pomFile != null && pomFile.getAbsolutePath() != null ?
-                        "Error encountered when processing file ' "
-                                .concat(pomFile.getAbsolutePath())
-                                .concat(" ' --> ")
-                                .concat(message) : message, cause);
-    }
-
-    public PomParserException(File pomFile, String message) {
-        super(pomFile != null && pomFile.getAbsolutePath() != null ?
-                "Error encountered when processing file ' "
-                        .concat(pomFile.getAbsolutePath())
-                        .concat(" ' --> ")
-                        .concat(message) : message);
+    PomParserException(File pomFile, String message) {
+        super(pomFile != null ? String.format(ERROR_MESSAGE,
+                pomFile.getAbsolutePath(), message != null ? message : DEFAULT_MESSAGE) : message !=null ? message : DEFAULT_MESSAGE);
     }
 }

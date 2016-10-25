@@ -7,12 +7,12 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import java.io.File;
 import java.io.FileReader;
 
-import uk.gov.justice.builder.Context;
-import uk.gov.justice.builder.ContextBuilder;
+import uk.gov.justice.builder.MicroService;
+import uk.gov.justice.builder.MicroServiceBuilder;
 
 public class PomParser {
 
-    public Context parse(File pom) throws Exception {
+    public MicroService parse(File pom) throws Exception {
         MavenXpp3Reader reader = new MavenXpp3Reader();
         Model model = reader.read(new FileReader(pom));
 
@@ -25,7 +25,7 @@ public class PomParser {
         String version = model.getVersion();
         version = StringUtils.isNotBlank(version) ? version : model.getParent().getVersion();
 
-        return new ContextBuilder()
+        return new MicroServiceBuilder()
                 .withName(artifactId)
                 .withVersion(version)
                 .build();

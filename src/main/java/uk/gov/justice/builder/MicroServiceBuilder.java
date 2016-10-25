@@ -1,19 +1,16 @@
 package uk.gov.justice.builder;
 
-/**
- * Created by arun on 24/10/2016.
- */
-public class ContextBuilder {
+public class MicroServiceBuilder {
 
     private String name;
     private String version;
 
-    public ContextBuilder(String name, String version) {
+    public MicroServiceBuilder(String name, String version) {
         this.name = name;
         this.version = version;
     }
 
-    public ContextBuilder() {
+    public MicroServiceBuilder() {
     }
 
 
@@ -22,7 +19,7 @@ public class ContextBuilder {
         return name;
     }
 
-    public ContextBuilder withName(String name) {
+    public MicroServiceBuilder withName(String name) {
         this.name = name;
         return this;
     }
@@ -31,12 +28,12 @@ public class ContextBuilder {
         return version;
     }
 
-    public ContextBuilder withVersion(String version) {
+    public MicroServiceBuilder withVersion(String version) {
         this.version = version;
         return this;
     }
 
-    public Context build(){
-        return new Context(getName(), getVersion());
+    public MicroService build(){
+        return new MicroService(getName(), getVersion());
     }
 }

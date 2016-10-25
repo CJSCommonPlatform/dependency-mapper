@@ -1,8 +1,8 @@
 package uk.gov.justice.tools;
 
 import org.junit.Test;
-import uk.gov.justice.builder.Context;
-import uk.gov.justice.builder.ContextBuilder;
+import uk.gov.justice.builder.MicroService;
+import uk.gov.justice.builder.MicroServiceBuilder;
 
 import java.io.File;
 
@@ -22,9 +22,9 @@ public class PomParserTest {
 
         File somePom = getFileFromTestResources(ROOT_FOLDER);
 
-        Context actualContext = actualPomParser.parse(somePom);
+        MicroService actualMicroService = actualPomParser.parse(somePom);
 
-        assertThat(actualContext.getName(), is("lifecycle-event-processor"));
+        assertThat(actualMicroService.getName(), is("lifecycle-event-processor"));
     }
 
 
@@ -34,9 +34,9 @@ public class PomParserTest {
 
         File somePom = getFileFromTestResources(ROOT_FOLDER);
 
-        Context actualContext = actualPomParser.parse(somePom);
+        MicroService actualMicroService = actualPomParser.parse(somePom);
 
-        assertThat(actualContext.getVersion(), is("2.0.70-SNAPSHOT"));
+        assertThat(actualMicroService.getVersion(), is("2.0.70-SNAPSHOT"));
     }
 
     @Test
@@ -45,9 +45,9 @@ public class PomParserTest {
 
         File somePom = getFileFromTestResources(BRANCH_FOLDER);
 
-        Context actualContext = actualPomParser.parse(somePom);
+        MicroService actualMicroService = actualPomParser.parse(somePom);
 
-        assertThat(actualContext.getVersion(), is("2.0.70-SNAPSHOT"));
+        assertThat(actualMicroService.getVersion(), is("2.0.70-SNAPSHOT"));
     }
 
 
@@ -57,14 +57,14 @@ public class PomParserTest {
 
         File somePom = getFileFromTestResources(ROOT_FOLDER);
 
-        Context actualContext = actualPomParser.parse(somePom);
+        MicroService actualMicroService = actualPomParser.parse(somePom);
 
-        Context contextExpected = new ContextBuilder()
+        MicroService microServiceExpected = new MicroServiceBuilder()
                 .withName("lifecycle-event-processor")
                 .withVersion("2.0.70-SNAPSHOT")
                 .build();
 
-        assertThat(actualContext, is(contextExpected));
+        assertThat(actualMicroService, is(microServiceExpected));
     }
 
 

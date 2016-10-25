@@ -1,19 +1,16 @@
 package uk.gov.justice.builder;
 
-/**
- * Created by arun on 24/10/2016.
- */
-public class Context {
+public class MicroService {
 
     private String name;
     private String version;
 
-    public Context(String name, String version) {
+    public MicroService(String name, String version) {
         this.name = name;
         this.version = version;
     }
 
-    public Context() {
+    public MicroService() {
     }
 
     public String getName() {
@@ -37,10 +34,10 @@ public class Context {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Context context = (Context) o;
+        MicroService microService = (MicroService) o;
 
-        if (!name.equals(context.name)) return false;
-        return version != null ? version.equals(context.version) : context.version == null;
+        if (!name.equals(microService.name)) return false;
+        return version != null ? version.equals(microService.version) : microService.version == null;
 
     }
 

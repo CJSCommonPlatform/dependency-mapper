@@ -1,11 +1,16 @@
 package uk.gov.justice.tools;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.maven.model.Build;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import uk.gov.justice.builder.MicroService;
 import uk.gov.justice.builder.MicroServiceBuilder;
@@ -25,9 +30,24 @@ public class PomParser {
         String version = model.getVersion();
         version = StringUtils.isNotBlank(version) ? version : model.getParent().getVersion();
 
+        //uses
+        List<MicroService> usesMicroServices = new ArrayList<MicroService>();
+        Build build = model.getBuild();
+        if (build != null) {
+            build.getPlugins().forEach(plugin -> plugin.getDependencies()
+                    .forEach(dependency -> addDependency(usesMicroServices, dependency)));
+        }
+
         return new MicroServiceBuilder()
                 .withName(artifactId)
                 .withVersion(version)
+                .withUses(usesMicroServices)
                 .build();
+    }
+
+    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency) {
+        if (dependency != null && dependency.getClassifier() != null && dependency.getClassifier().equals("raml")) {
+            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).build());
+        }
     }
 }

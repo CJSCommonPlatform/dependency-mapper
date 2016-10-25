@@ -1,13 +1,17 @@
 package uk.gov.justice.builder;
 
+import java.util.List;
+
 public class MicroService {
 
     private String name;
     private String version;
+    private List<MicroService> uses;
 
-    public MicroService(String name, String version) {
+    public MicroService(String name, String version, List<MicroService> uses) {
         this.name = name;
         this.version = version;
+        this.uses = uses;
     }
 
     public MicroService() {
@@ -54,5 +58,13 @@ public class MicroService {
                 "name='" + name + '\'' +
                 ", version='" + version + '\'' +
                 '}';
+    }
+
+    public List<MicroService> uses() {
+        return uses;
+    }
+
+    public void setUses(List<MicroService> uses) {
+        this.uses = uses;
     }
 }

@@ -47,7 +47,7 @@ public class PomParser {
 
     private void addDependency(List<MicroService> usesMicroServices, Dependency dependency) {
         if (dependency != null && dependency.getClassifier() != null && dependency.getClassifier().equals("raml")) {
-            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).build());
+            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(dependency.getVersion()).build());
         }
     }
 }

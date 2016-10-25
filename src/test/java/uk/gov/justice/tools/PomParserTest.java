@@ -80,22 +80,22 @@ public class PomParserTest {
     }
 
     @Test
-    public void shouldContainDepdencies() throws Exception {
+    public void shouldContainDependenciesIncludingVersions() throws Exception {
         PomParser actualPomParser = new PomParser();
 
         List<MicroService> expected = Arrays.asList(
-                new MicroServiceBuilder().withName("people-command-api").build(),
-                new MicroServiceBuilder().withName("material-command-api").build(),
-                new MicroServiceBuilder().withName("structure-command-api").build(),
-                new MicroServiceBuilder().withName("structure-event-listener").build(),
-                new MicroServiceBuilder().withName("structure-query-api").build(),
-                new MicroServiceBuilder().withName("charging-command-api").build(),
-                new MicroServiceBuilder().withName("assignment-command-api").build(),
-                new MicroServiceBuilder().withName("charging-query-api").build(),
-                new MicroServiceBuilder().withName("scheduling-command-api").build(),
-                new MicroServiceBuilder().withName("scheduling-query-api").build(),
-                new MicroServiceBuilder().withName("progression-command-api").build(),
-                new MicroServiceBuilder().withName("progression-query-api").build()
+                new MicroServiceBuilder().withName("people-command-api").withVersion("${people.version}").build(),
+                new MicroServiceBuilder().withName("material-command-api").withVersion("${material.version}").build(),
+                new MicroServiceBuilder().withName("structure-command-api").withVersion("${structure.version}").build(),
+                new MicroServiceBuilder().withName("structure-event-listener").withVersion("${structure.version}").build(),
+                new MicroServiceBuilder().withName("structure-query-api").withVersion("${structure.version}").build(),
+                new MicroServiceBuilder().withName("charging-command-api").withVersion("${charging.version}").build(),
+                new MicroServiceBuilder().withName("assignment-command-api").withVersion("${assignment.version}").build(),
+                new MicroServiceBuilder().withName("charging-query-api").withVersion("${charging.version}").build(),
+                new MicroServiceBuilder().withName("scheduling-command-api").withVersion("${scheduling.version}").build(),
+                new MicroServiceBuilder().withName("scheduling-query-api").withVersion("${scheduling.version}").build(),
+                new MicroServiceBuilder().withName("progression-command-api").withVersion("${progression.version}").build(),
+                new MicroServiceBuilder().withName("progression-query-api").withVersion("${progression.version}").build()
 
         );
 

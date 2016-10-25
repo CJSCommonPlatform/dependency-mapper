@@ -5,7 +5,7 @@ import java.io.File;
 
 class PomParserException extends Exception {
     static final String DEFAULT_MESSAGE = "An error occurred while processing a POM file, however neither file nor error was captured";
-    static final String ERROR_MESSAGE = "Error encountered when processing file ' %s ' --> %s";
+    private static final String ERROR_MESSAGE = "Error encountered when processing file ' %s ' --> %s";
 
     PomParserException(File pomFile, String message) {
         super(pomFile != null ? String.format(ERROR_MESSAGE,

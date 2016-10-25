@@ -1,12 +1,13 @@
 package uk.gov.justice.builders;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MicroServiceBuilder {
 
     private String name;
     private String version;
-    private List<MicroService> uses;
+    private List<MicroService> uses = Collections.emptyList();
 
     public MicroServiceBuilder(String name, String version) {
         this.name = name;

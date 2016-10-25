@@ -28,4 +28,24 @@ public class MicroServiceMapBuilderTest {
 
         assertThat(microServiceMap, is(expectedMicroServiceMap));
     }
+
+    @Test
+    public void shouldReturnAMapOfMicroServicesIncludingConsumers() {
+        List<MicroService> microServices = Arrays.asList(
+                new MicroServiceBuilder().withName("A").withUses(Collections.singletonList(new MicroServiceBuilder().withName("C").build())).build(),
+                new MicroServiceBuilder().withName("B").withUses(Collections.singletonList(new MicroServiceBuilder().withName("C").build())).build(),
+                new MicroServiceBuilder().withName("C").withUses(Collections.singletonList(new MicroServiceBuilder().withName("D").build())).build(),
+                new MicroServiceBuilder().withName("D").withUses(Collections.singletonList(new MicroServiceBuilder().withName("A").build())).build());
+
+        Map<MicroService, List<MicroService>> expectedMicroServiceMap = new HashMap<>();
+
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("A").build(), Collections.singletonList(new MicroServiceBuilder().withName("D").build()));
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("B").build(), Collections.emptyList());
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("C").build(), Arrays.asList(new MicroServiceBuilder().withName("A").build(), new MicroServiceBuilder().withName("B").build()));
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("D").build(), Collections.singletonList(new MicroServiceBuilder().withName("C").build()));
+
+        Map<MicroService, List<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
+
+        assertThat(microServiceMap, is(expectedMicroServiceMap));
+    }
 }

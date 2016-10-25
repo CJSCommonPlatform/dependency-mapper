@@ -1,4 +1,4 @@
-package uk.gov.justice.builder;
+package uk.gov.justice.builders;
 
 import java.util.List;
 

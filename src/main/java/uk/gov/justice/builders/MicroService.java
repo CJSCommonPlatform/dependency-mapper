@@ -40,15 +40,17 @@ public class MicroService {
 
         MicroService microService = (MicroService) o;
 
-        if (!name.equals(microService.name)) return false;
-        return version != null ? version.equals(microService.version) : microService.version == null;
-
+        if (!name.equals(microService.name)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
     public int hashCode() {
         int result = name.hashCode();
-        result = 31 * result + (version != null ? version.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 

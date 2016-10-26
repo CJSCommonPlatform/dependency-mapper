@@ -4,7 +4,8 @@ package uk.gov.justice.tools.converter;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-import uk.gov.justice.builder.MicroService;
+
+import uk.gov.justice.builders.MicroService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Test;

@@ -47,8 +47,6 @@ public class MicroServicesSerialiserTest {
 
         String actualJson = mapper.writeValueAsString(applicationMap);
 
-        System.out.println(actualJson);
-
         File expectedCustomizedJson = getExpectedCustomizedJson();
         String expectedJson = readFile(expectedCustomizedJson.getAbsolutePath(), Charset.defaultCharset());
 

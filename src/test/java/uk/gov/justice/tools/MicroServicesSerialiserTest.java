@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertThat;
 
 public class MicroServicesSerialiserTest {
 

@@ -56,7 +56,7 @@ public class MicroService {
 
     @Override
     public String toString() {
-        return "Context{" +
+        return "MicroService{" +
                 "name='" + name + '\'' +
                 ", version='" + version + '\'' +
                 '}';

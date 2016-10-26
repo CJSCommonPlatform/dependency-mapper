@@ -46,6 +46,7 @@ public class CustomSerialiser extends StdSerializer<ApplicationMap> {
             jsonGenerator.writeEndObject();
         }
         jsonGenerator.writeEndArray();
+        jsonGenerator.writeStringField("dateCreated", applicationMap.getCreationDate());
         jsonGenerator.writeEndObject();
     }
 }

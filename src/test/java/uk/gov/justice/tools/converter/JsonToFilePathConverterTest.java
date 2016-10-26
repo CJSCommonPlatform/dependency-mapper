@@ -16,7 +16,7 @@ public class JsonToFilePathConverterTest {
     @Test
     public void convert() throws Exception {
         Config config = new Config();
-        config.setOutputDirectory(System.getProperty("java.io.tmpdir"));
+        config.setOutputDirectory(System.getProperty("java.io.tmpdir") + "/");
 
 
         JsonToFilePathConverter testObj = new JsonToFilePathConverter(config);

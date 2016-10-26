@@ -1,6 +1,5 @@
 package uk.gov.justice.tools;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.hamcrest.core.Is;
@@ -13,10 +12,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertThat;
 
@@ -40,7 +36,7 @@ public class MicroServicesSerialiserTest {
         msMap.put(msB, Arrays.asList(msA, msC));
         msMap.put(msC, Arrays.asList(msC, msD));
         msMap.put(msD, Arrays.asList(msA, msC));
-        msMap.put(msE, Arrays.asList(msB));
+        msMap.put(msE, Collections.singletonList(msB));
 
         ApplicationMap applicationMap = new ApplicationMap(msMap);
 
@@ -60,7 +56,7 @@ public class MicroServicesSerialiserTest {
         ClassLoader classLoader = getClass().getClassLoader();
         return new File(classLoader.getResource("./".concat("expectedSerializedData.json")).getFile());
     }
-    static String readFile(String path, Charset encoding) throws IOException
+    private String readFile(String path, Charset encoding) throws IOException
     {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);

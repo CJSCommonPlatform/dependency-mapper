@@ -1,13 +1,13 @@
 package uk.gov.justice.tools.converter;
 
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 import uk.gov.justice.builder.MicroService;
-import uk.gov.justice.tools.converter.MicroServiceToJsonConverter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Test;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 public class MicroServiceToJsonConverterTest {
 
@@ -20,8 +20,8 @@ public class MicroServiceToJsonConverterTest {
 
         MicroServiceToJsonConverter testObj = new MicroServiceToJsonConverter();
 
-       String result = testObj.convert(microService);
+        String result = testObj.convert(microService);
 
-       assertThat(result, is("{\"name\":\"abc\",\"version\":\"1.1\"}"));
+        assertThat(result, is("{\"name\":\"abc\",\"version\":\"1.1\"}"));
     }
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>uk.gov.moj.cpp.lifecycle</groupId>
@@ -12,7 +14,8 @@
     <name>lifecycle-event-processor</name>
 
     <description>
-        The lifecycle processor manages/coordinates the lifecycle of a case by invoking the various services when an
+        The lifecycle processor manages/coordinates the lifecycle of a case by invoking the various
+        services when an
         event arrives.
     </description>
 
@@ -70,7 +73,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-        
+
         <!-- JUnit regression testing framework. -->
         <dependency>
             <groupId>junit</groupId>
@@ -113,12 +116,12 @@
                         <version>${structure.version}</version>
                         <classifier>raml</classifier>
                     </dependency>
-                   <!--  <dependency>
-                        <groupId>uk.gov.moj.cpp.structure</groupId>
-                        <artifactId>structure-event-listener</artifactId>
-                        <version>${structure.version}</version>
-                        <classifier>raml</classifier>
-                    </dependency> -->
+                    <!--  <dependency>
+                         <groupId>uk.gov.moj.cpp.structure</groupId>
+                         <artifactId>structure-event-listener</artifactId>
+                         <version>${structure.version}</version>
+                         <classifier>raml</classifier>
+                     </dependency> -->
                     <dependency>
                         <groupId>uk.gov.moj.cpp.structure</groupId>
                         <artifactId>structure-query-api</artifactId>

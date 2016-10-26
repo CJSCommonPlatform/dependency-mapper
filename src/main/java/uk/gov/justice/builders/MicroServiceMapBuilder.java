@@ -1,7 +1,11 @@
 package uk.gov.justice.builders;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 class MicroServiceMapBuilder {
 
@@ -21,10 +25,9 @@ class MicroServiceMapBuilder {
     }
 
     private void registerMicroService(Map<MicroService, List<MicroService>> microServiceMap, MicroService microService) {
-        if(!microServiceMap.containsKey(microService)) {
+        if (!microServiceMap.containsKey(microService)) {
             microServiceMap.put(microService, Collections.emptyList());
-        }
-        else {
+        } else {
             MicroService actualMicroService = new MicroServiceBuilder().withName(microService.getName()).withVersion(microService.getVersion()).withUses(microService.uses()).build();
             List<MicroService> alreadyRegisteredConsumers = microServiceMap.get(microService);
             microServiceMap.remove(actualMicroService);
@@ -35,7 +38,7 @@ class MicroServiceMapBuilder {
     }
 
     private void registerUsage(Map<MicroService, List<MicroService>> microServiceMap, MicroService targetMicroService, MicroService usedByMicroService) {
-        if(!microServiceMap.containsKey(targetMicroService)) {
+        if (!microServiceMap.containsKey(targetMicroService)) {
             microServiceMap.put(new MicroServiceBuilder().withName(targetMicroService.getName()).withVersion("NA").build(),
                     Collections.singletonList(new MicroServiceBuilder().withName(usedByMicroService.getName()).withVersion(targetMicroService.getVersion()).build()));
         } else {

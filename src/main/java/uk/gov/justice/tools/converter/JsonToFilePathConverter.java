@@ -10,8 +10,8 @@ import java.nio.file.Paths;
 
 public class JsonToFilePathConverter implements Converter<Path, String> {
 
-    private Config config;
     static final String FILENAME = "contexts.json";
+    private Config config;
 
     public JsonToFilePathConverter(Config config) {
         this.config = config;

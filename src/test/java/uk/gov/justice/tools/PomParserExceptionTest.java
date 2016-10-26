@@ -1,11 +1,11 @@
 package uk.gov.justice.tools;
 
-import org.junit.Test;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import java.io.File;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 public class PomParserExceptionTest {
 
@@ -18,7 +18,7 @@ public class PomParserExceptionTest {
         try {
 
             throw new PomParserException(someFile, errorMessage);
-        } catch(PomParserException e) {
+        } catch (PomParserException e) {
             String expectedErrorMessage = "Error encountered when processing file ' " + someFile.getAbsolutePath() + " ' --> " + errorMessage;
             assertThat(e.getMessage(), is(expectedErrorMessage));
         }
@@ -30,7 +30,7 @@ public class PomParserExceptionTest {
         try {
 
             throw new PomParserException(null, errorMessage);
-        } catch(PomParserException e) {
+        } catch (PomParserException e) {
             assertThat(e.getMessage(), is(errorMessage));
         }
     }
@@ -39,7 +39,7 @@ public class PomParserExceptionTest {
     public void shouldReportDefaultMessageOnly() {
         try {
             throw new PomParserException(null, null);
-        } catch(PomParserException e) {
+        } catch (PomParserException e) {
             assertThat(e.getMessage(), is(PomParserException.DEFAULT_MESSAGE));
         }
     }

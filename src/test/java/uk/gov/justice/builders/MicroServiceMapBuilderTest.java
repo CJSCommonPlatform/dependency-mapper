@@ -1,11 +1,15 @@
 package uk.gov.justice.builders;
 
-import org.junit.Test;
-
-import java.util.*;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
 
 public class MicroServiceMapBuilderTest {
 
@@ -93,14 +97,14 @@ public class MicroServiceMapBuilderTest {
     }
 
     private void assertMicroService(MicroService microService) {
-        if(microService.getName().equals("A")) assertThat(microService.getVersion(), is("5.0"));
-        if(microService.getName().equals("B")) assertThat(microService.getVersion(), is("6.0"));
-        if(microService.getName().equals("C")) assertThat(microService.getVersion(), is("4.0"));
-        if(microService.getName().equals("D")) assertThat(microService.getVersion(), is("8.0"));
+        if (microService.getName().equals("A")) assertThat(microService.getVersion(), is("5.0"));
+        if (microService.getName().equals("B")) assertThat(microService.getVersion(), is("6.0"));
+        if (microService.getName().equals("C")) assertThat(microService.getVersion(), is("4.0"));
+        if (microService.getName().equals("D")) assertThat(microService.getVersion(), is("8.0"));
     }
 
     private void assertMicroServiceConsumersForMicroServiceC(MicroService microService) {
-        if(microService.getName().equals("A")) assertThat(microService.getVersion(), is("1.0"));
-        if(microService.getName().equals("B")) assertThat(microService.getVersion(), is("2.0"));
+        if (microService.getName().equals("A")) assertThat(microService.getVersion(), is("1.0"));
+        if (microService.getName().equals("B")) assertThat(microService.getVersion(), is("2.0"));
     }
 }

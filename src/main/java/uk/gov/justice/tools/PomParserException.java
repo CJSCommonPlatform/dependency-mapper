@@ -9,6 +9,6 @@ class PomParserException extends Exception {
 
     PomParserException(File pomFile, String message) {
         super(pomFile != null ? String.format(ERROR_MESSAGE,
-                pomFile.getAbsolutePath(), message != null ? message : DEFAULT_MESSAGE) : message !=null ? message : DEFAULT_MESSAGE);
+                pomFile.getAbsolutePath(), message != null ? message : DEFAULT_MESSAGE) : message != null ? message : DEFAULT_MESSAGE);
     }
 }

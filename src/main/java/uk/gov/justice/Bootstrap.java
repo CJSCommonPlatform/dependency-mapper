@@ -1,6 +1,7 @@
 package uk.gov.justice;
 
-import uk.gov.justice.builder.MicroService;
+
+import uk.gov.justice.builders.MicroService;
 import uk.gov.justice.tools.Config;
 import uk.gov.justice.tools.FileFinder;
 import uk.gov.justice.tools.converter.JsonToFilePathConverter;

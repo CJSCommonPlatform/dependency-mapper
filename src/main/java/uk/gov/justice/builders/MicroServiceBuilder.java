@@ -18,7 +18,6 @@ public class MicroServiceBuilder {
     }
 
 
-
     public String getName() {
         return name;
     }
@@ -46,7 +45,7 @@ public class MicroServiceBuilder {
         return this;
     }
 
-    public MicroService build(){
+    public MicroService build() {
         return new MicroService(getName(), getVersion(), getUses());
     }
 }

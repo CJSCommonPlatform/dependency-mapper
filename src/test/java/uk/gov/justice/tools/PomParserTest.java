@@ -1,6 +1,8 @@
 package uk.gov.justice.tools;
 
-import org.junit.Test;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 import uk.gov.justice.builders.MicroService;
 import uk.gov.justice.builders.MicroServiceBuilder;
 
@@ -8,8 +10,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 
 public class PomParserTest {

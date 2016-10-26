@@ -1,8 +1,7 @@
 package uk.gov.justice.tools.converter;
 
-import uk.gov.justice.builder.MicroService;
 
-import java.awt.peer.CanvasPeer;
+import uk.gov.justice.builders.MicroService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

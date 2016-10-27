@@ -7,6 +7,7 @@ import uk.gov.justice.builders.MicroService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 public class CustomSerialiser extends StdSerializer<ApplicationMap> {
 
@@ -32,7 +33,7 @@ public class CustomSerialiser extends StdSerializer<ApplicationMap> {
             jsonGenerator.writeFieldName("consumedBy");
 
             jsonGenerator.writeStartArray();
-            List<MicroService> consumedByMicroServices = applicationMap.getMicroServices().get(microService);
+            Set<MicroService> consumedByMicroServices = applicationMap.getMicroServices().get(microService);
 
             for (MicroService consumedByMicroService : consumedByMicroServices) {
                 jsonGenerator.writeStartObject();

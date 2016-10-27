@@ -12,6 +12,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -27,13 +29,13 @@ public class MicroServicesSerialiserTest {
         MicroService msD = new MicroServiceBuilder().withName("D").withVersion("7.0").build();
         MicroService msE = new MicroServiceBuilder().withName("E").withVersion("8.0").build();
 
-        Map<MicroService, List<MicroService>> msMap = new HashMap<>();
+        Map<MicroService, Set<MicroService>> msMap = new HashMap<>();
 
-        msMap.put(msA, Arrays.asList(msB, msE));
-        msMap.put(msB, Arrays.asList(msA, msC));
-        msMap.put(msC, Arrays.asList(msC, msD));
-        msMap.put(msD, Arrays.asList(msA, msC));
-        msMap.put(msE, Collections.singletonList(msB));
+        msMap.put(msA, Stream.of(msB, msE).collect(Collectors.toSet()));
+        msMap.put(msB, Stream.of(msA, msC).collect(Collectors.toSet()));
+        msMap.put(msC, Stream.of(msC, msD).collect(Collectors.toSet()));
+        msMap.put(msD, Stream.of(msA, msC).collect(Collectors.toSet()));
+        msMap.put(msE, Stream.of(msB).collect(Collectors.toSet()));
 
         ApplicationMap applicationMap = new ApplicationMap(msMap);
 

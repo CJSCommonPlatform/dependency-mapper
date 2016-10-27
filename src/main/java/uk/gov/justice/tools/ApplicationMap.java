@@ -7,16 +7,17 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ApplicationMap {
 
-    private final Map<MicroService, List<MicroService>> msMap;
+    private final Map<MicroService, Set<MicroService>> msMap;
 
-    public ApplicationMap(Map<MicroService, List<MicroService>> msMap) {
+    public ApplicationMap(Map<MicroService, Set<MicroService>> msMap) {
        this.msMap = msMap;
     }
 
-    public Map<MicroService, List<MicroService>> getMicroServices() {
+    public Map<MicroService, Set<MicroService>> getMicroServices() {
         return msMap;
     }
 

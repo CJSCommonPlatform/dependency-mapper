@@ -3,11 +3,9 @@ package uk.gov.justice.builders;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -21,14 +19,14 @@ public class MicroServiceMapBuilderTest {
                 new MicroServiceBuilder().withName("C").build(),
                 new MicroServiceBuilder().withName("D").build());
 
-        Map<MicroService, List<MicroService>> expectedMicroServiceMap = new HashMap<>();
+        Map<MicroService, Set<MicroService>> expectedMicroServiceMap = new HashMap<>();
 
-        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("A").build(), Collections.emptyList());
-        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("B").build(), Collections.emptyList());
-        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("C").build(), Collections.emptyList());
-        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("D").build(), Collections.emptyList());
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("A").build(), Collections.EMPTY_SET);
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("B").build(), Collections.EMPTY_SET);
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("C").build(), Collections.EMPTY_SET);
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("D").build(), Collections.EMPTY_SET);
 
-        Map<MicroService, List<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
+        Map<MicroService, Set<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
 
         assertThat(microServiceMap, is(expectedMicroServiceMap));
     }
@@ -41,14 +39,14 @@ public class MicroServiceMapBuilderTest {
                 new MicroServiceBuilder().withName("C").withUses(Collections.singletonList(new MicroServiceBuilder().withName("D").build())).build(),
                 new MicroServiceBuilder().withName("D").withUses(Collections.singletonList(new MicroServiceBuilder().withName("A").build())).build());
 
-        Map<MicroService, List<MicroService>> expectedMicroServiceMap = new HashMap<>();
+        Map<MicroService, Set<MicroService>> expectedMicroServiceMap = new HashMap<>();
 
-        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("A").build(), Collections.singletonList(new MicroServiceBuilder().withName("D").build()));
-        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("B").build(), Collections.emptyList());
-        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("C").build(), Arrays.asList(new MicroServiceBuilder().withName("A").build(), new MicroServiceBuilder().withName("B").build()));
-        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("D").build(), Collections.singletonList(new MicroServiceBuilder().withName("C").build()));
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("A").build(), Stream.of(new MicroServiceBuilder().withName("D").build()).collect(Collectors.toSet()));
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("B").build(), Collections.EMPTY_SET);
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("C").build(), Stream.of(new MicroServiceBuilder().withName("A").build(), new MicroServiceBuilder().withName("B").build()).collect(Collectors.toSet()));
+        expectedMicroServiceMap.put(new MicroServiceBuilder().withName("D").build(), Stream.of(new MicroServiceBuilder().withName("C").build()).collect(Collectors.toSet()));
 
-        Map<MicroService, List<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
+        Map<MicroService, Set<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
 
         assertThat(microServiceMap, is(expectedMicroServiceMap));
     }
@@ -60,17 +58,17 @@ public class MicroServiceMapBuilderTest {
                 new MicroServiceBuilder().withName("B").withVersion("6.0").withUses(Collections.singletonList(new MicroServiceBuilder().withName("C").withVersion("2.0").build())).build(),
                 new MicroServiceBuilder().withName("C").withVersion("4.0").withUses(Collections.singletonList(new MicroServiceBuilder().withName("A").withVersion("5.0").build())).build());
 
-        Map<MicroService, List<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
+        Map<MicroService, Set<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
         microServiceMap.keySet().forEach(this::assertMicroService);
 
-        MicroService msAConsumer = microServiceMap.get(new MicroServiceBuilder().withName("A").build()).get(0);
+        MicroService msAConsumer = microServiceMap.get(new MicroServiceBuilder().withName("A").build()).iterator().next();
         assertThat(msAConsumer.getName(), is("C"));
         assertThat(msAConsumer.getVersion(), is("5.0"));
 
-        List<MicroService> msBConsumers = microServiceMap.get(new MicroServiceBuilder().withName("B").build());
+        Set<MicroService> msBConsumers = microServiceMap.get(new MicroServiceBuilder().withName("B").build());
         assertThat(msBConsumers.isEmpty(), is(true));
 
-        List<MicroService> msCConsumers = microServiceMap.get(new MicroServiceBuilder().withName("C").build());
+        Set<MicroService> msCConsumers = microServiceMap.get(new MicroServiceBuilder().withName("C").build());
         msCConsumers.forEach(this::assertMicroServiceConsumersForMicroServiceC);
     }
 
@@ -81,18 +79,18 @@ public class MicroServiceMapBuilderTest {
                 new MicroServiceBuilder().withName("A").withVersion("5.0").withUses(Collections.singletonList(new MicroServiceBuilder().withName("C").withVersion("1.0").build())).build(),
                 new MicroServiceBuilder().withName("B").withVersion("6.0").withUses(Collections.singletonList(new MicroServiceBuilder().withName("C").withVersion("2.0").build())).build());
 
-        Map<MicroService, List<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
+        Map<MicroService, Set<MicroService>> microServiceMap = new MicroServiceMapBuilder(microServices).generate();
 
         microServiceMap.keySet().forEach(this::assertMicroService);
 
-        MicroService msAConsumer = microServiceMap.get(new MicroServiceBuilder().withName("A").build()).get(0);
+        MicroService msAConsumer = microServiceMap.get(new MicroServiceBuilder().withName("A").build()).iterator().next();
         assertThat(msAConsumer.getName(), is("C"));
         assertThat(msAConsumer.getVersion(), is("4.9"));
 
-        List<MicroService> msBConsumers = microServiceMap.get(new MicroServiceBuilder().withName("B").build());
+        Set<MicroService> msBConsumers = microServiceMap.get(new MicroServiceBuilder().withName("B").build());
         assertThat(msBConsumers.isEmpty(), is(true));
 
-        List<MicroService> msCConsumers = microServiceMap.get(new MicroServiceBuilder().withName("C").build());
+        Set<MicroService> msCConsumers = microServiceMap.get(new MicroServiceBuilder().withName("C").build());
         msCConsumers.forEach(this::assertMicroServiceConsumersForMicroServiceC);
     }
 

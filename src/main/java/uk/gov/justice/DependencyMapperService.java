@@ -10,17 +10,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SystemDataService {
+public class DependencyMapperService {
 
     private final Config config;
 
-    public SystemDataService(Config config) {
+    public DependencyMapperService(Config config) {
         this.config = config;
     }
 
     public String generate() throws Exception {
         FileFinder fileFinder = new FileFinder(config);
         List<File> pomFiles = fileFinder.findPomFiles();
+
+        if (pomFiles.isEmpty())
+            return "";
+
         PomParser pomParser = new PomParser();
         List<MicroService> microServices = new ArrayList<>();
         for (File pomFile : pomFiles) {
@@ -36,7 +40,6 @@ public class SystemDataService {
 
         ApplicationMap applicationMap = new ApplicationMap(builder.generate());
 
-        String actualJson = mapper.writeValueAsString(applicationMap);
-        return actualJson;
+        return mapper.writeValueAsString(applicationMap);
     }
 }

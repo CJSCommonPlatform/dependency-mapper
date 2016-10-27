@@ -20,31 +20,15 @@ public class Bootstrap {
             System.getenv("outputDirectory") != null ?
                     System.getenv("outputDirectory") : System.getProperty("outputDirectory", "/opt/");
 
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) throws Exception {
         Config config = new Config();
         config.setRootDirectory(ROOT_DIRECTORY);
         config.setOutputDirectory(OUTPUT_DIRECTORY);
 
-        FileFinder fileFinder = new FileFinder(config);
+        //prepare DependencyMapper service
+        DependencyMapperService dependencyMapperService = new DependencyMapperService(config);
 
-        MicroService abc = new MicroService();
-        abc.setName("abc");
-        abc.setVersion("1.1");
-
-        MicroService def = new MicroService();
-        def.setName("def");
-        def.setVersion("1.1");
-
-        List<MicroService> services = new ArrayList<>();
-        services.add(def);
-        abc.setUses(services);
-
-
-        MicroServiceToJsonConverter microServiceToJsonConverter = new MicroServiceToJsonConverter();
         JsonToFilePathConverter jsonToFilePathConverter = new JsonToFilePathConverter(config);
-
-        jsonToFilePathConverter.convert(microServiceToJsonConverter.convert(abc));
-
+        jsonToFilePathConverter.convert(dependencyMapperService.generate());
     }
 }

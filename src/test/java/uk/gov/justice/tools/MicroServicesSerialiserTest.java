@@ -17,8 +17,6 @@ import static junit.framework.Assert.assertTrue;
 
 public class MicroServicesSerialiserTest {
 
-    private String expectedCustomizedJson = "{\"microServices\":[{\"microService\":\"A\",\"version\":\"4.0\",\"consumedBy\":[{\"microService\":\"B\",\"usingVersion\":\"5.0\"},{\"microService\":\"E\",\"usingVersion\":\"8.0\"}]},{\"microService\":\"B\",\"version\":\"5.0\",\"consumedBy\":[{\"microService\":\"A\",\"usingVersion\":\"4.0\"},{\"microService\":\"C\",\"usingVersion\":\"6.0\"}]},{\"microService\":\"C\",\"version\":\"6.0\",\"consumedBy\":[{\"microService\":\"C\",\"usingVersion\":\"6.0\"},{\"microService\":\"D\",\"usingVersion\":\"7.0\"}]},{\"microService\":\"D\",\"version\":\"7.0\",\"consumedBy\":[{\"microService\":\"A\",\"usingVersion\":\"4.0\"},{\"microService\":\"C\",\"usingVersion\":\"6.0\"}]},{\"microService\":\"E\",\"version\":\"8.0\",\"consumedBy\":[{\"microService\":\"B\",\"usingVersion\":\"5.0\"}]}]}";
-
     @Test
     public void shouldCreateJsonFromMicroServices() throws IOException {
 

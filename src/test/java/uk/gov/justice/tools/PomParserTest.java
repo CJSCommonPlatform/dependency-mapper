@@ -9,7 +9,6 @@ import uk.gov.justice.builders.MicroServiceBuilder;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 import org.junit.Test;
 
@@ -26,13 +25,7 @@ public class PomParserTest {
     public static final String ASSIGNMENT_CONTEXT_VERSION = "2.0.11";
     public static final String SCHEDULING_CONTEXT_VERSION = "2.0.24";
     public static final String PROGRESSION_CONTEXT_VERSION = "2.0.21";
-    public static final String PEOPLE_CONTEXT = "people";
-    public static final String MATERIAL_CONTEXT = "material";
-    public static final String STRUCTURE_CONTEXT = "structure";
-    public static final String CHARGING_CONTEXT = "charging";
-    public static final String ASSIGNMENT_CONTEXT = "assignment";
-    public static final String SCHEDULING_CONTEXT = "scheduling";
-    public static final String PROGRESSION_CONTEXT = "progression";
+
 
     @Test
     public void shouldParseNameFromPom() throws Exception {
@@ -120,9 +113,42 @@ public class PomParserTest {
         MicroService actualMicroService = actualPomParser.parse(somePom);
 
         assertThat(actualMicroService.uses(), is(expected));
+        assertDependenciesVersion(actualMicroService);
     }
 
     private void assertDependenciesVersion(MicroService actualMicroService) {
+        actualMicroService.uses().forEach(dep -> assertDependency(dep));
+    }
+
+    private void assertDependency(MicroService dep) {
+        if (dep.getName().startsWith(PomParser.PEOPLE_CONTEXT)){
+            assertThat(dep.getVersion(), is(PEOPLE_CONTEXT_VERSION));
+            return;
+        }
+        if (dep.getName().startsWith(PomParser.MATERIAL_CONTEXT)) {
+            assertThat(dep.getVersion(), is(MATERIAL_CONTEXT_VERSION));
+            return;
+        }
+        if (dep.getName().startsWith(PomParser.STRUCTURE_CONTEXT)) {
+            assertThat(dep.getVersion(), is(STRUCTURE_CONTEXT_VERSION));
+            return;
+        }
+        if (dep.getName().startsWith(PomParser.CHARGING_CONTEXT)) {
+            assertThat(dep.getVersion(), is(CHARGING_CONTEXT_VERSION));
+            return;
+        }
+        if (dep.getName().startsWith(PomParser.ASSIGNMENT_CONTEXT)) {
+            assertThat(dep.getVersion(), is(ASSIGNMENT_CONTEXT_VERSION));
+            return;
+        }
+        if (dep.getName().startsWith(PomParser.SCHEDULING_CONTEXT)) {
+            assertThat(dep.getVersion(), is(SCHEDULING_CONTEXT_VERSION));
+            return;
+        }
+        if (dep.getName().startsWith(PomParser.PROGRESSION_CONTEXT)) {
+            assertThat(dep.getVersion(), is(PROGRESSION_CONTEXT_VERSION));
+            return;
+        }
     }
 
 

@@ -60,9 +60,12 @@ public class PomParser {
 
     private String fetchDependencyVersion(Dependency dependency, Properties properties) {
         String version = dependency.getVersion();
-        Pattern pattern = Pattern.compile("([a-z]+.)\\w+");
-        Matcher matcher = pattern.matcher(version);
 
-        return (matcher.find() ? properties.get(matcher.group(0)).toString() : version);
+        if (StringUtils.isNotBlank(version) && version.contains("$")) {
+            Pattern pattern = Pattern.compile("([a-z]+.)\\w+");
+            Matcher matcher = pattern.matcher(version);
+            return (matcher.find() ? properties.get(matcher.group(0)).toString() : version);
+        } else
+            return version == null ? "NA" : version;
     }
 }

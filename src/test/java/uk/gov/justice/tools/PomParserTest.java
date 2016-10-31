@@ -18,6 +18,8 @@ public class PomParserTest {
     private static final String ROOT_FOLDER = "root";
     private static final String BRANCH_FOLDER = "root/branch";
     private static final String FAULTY_FOLDER = "faulty";
+    private static final String NO_DEPENDENCY_VERSIONS_FOLDER = "no_dep_versions";
+    private static final String DEPENDENCY_VERSIONS_SPECIFIED_FOLDER = "dep_versions_specified";
     public static final String PEOPLE_CONTEXT_VERSION = "2.0.23";
     public static final String MATERIAL_CONTEXT_VERSION = "2.0.18";
     public static final String STRUCTURE_CONTEXT_VERSION = "2.0.49";
@@ -33,7 +35,7 @@ public class PomParserTest {
     public static final String ASSIGNMENT_CONTEXT = "assignment";
     public static final String SCHEDULING_CONTEXT = "scheduling";
     public static final String PROGRESSION_CONTEXT = "progression";
-
+    public static final String NO_VERSION = "NA";
 
 
     @Test
@@ -114,7 +116,6 @@ public class PomParserTest {
                 new MicroServiceBuilder().withName("scheduling-query-api").withVersion(SCHEDULING_CONTEXT_VERSION).build(),
                 new MicroServiceBuilder().withName("progression-command-api").withVersion(PROGRESSION_CONTEXT_VERSION).build(),
                 new MicroServiceBuilder().withName("progression-query-api").withVersion(PROGRESSION_CONTEXT_VERSION).build()
-
         );
 
         File somePom = getFileFromTestResources(BRANCH_FOLDER);
@@ -123,6 +124,60 @@ public class PomParserTest {
 
         assertThat(actualMicroService.uses(), is(expected));
         assertDependenciesVersion(actualMicroService);
+    }
+
+
+    @Test
+    public void shouldReturnNoVersionInformationWhenDependencyHasNoVersionSpecified() throws Exception {
+        PomParser actualPomParser = new PomParser();
+
+        List<MicroService> expected = Arrays.asList(
+                new MicroServiceBuilder().withName("people-command-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("material-command-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("structure-command-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("structure-query-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("charging-command-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("assignment-command-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("charging-query-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("scheduling-command-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("scheduling-query-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("progression-command-api").withVersion(NO_VERSION).build(),
+                new MicroServiceBuilder().withName("progression-query-api").withVersion(NO_VERSION).build()
+        );
+
+        File somePom = getFileFromTestResources(NO_DEPENDENCY_VERSIONS_FOLDER);
+
+        MicroService actualMicroService = actualPomParser.parse(somePom);
+
+        assertThat(actualMicroService.uses(), is(expected));
+        actualMicroService.uses().forEach(dep -> assertThat(dep.getVersion(), is("NA")));
+    }
+
+    @Test
+    public void shouldReturnExactVersionsWhenDependenciesHaveVersionsSpecified() throws Exception {
+        PomParser actualPomParser = new PomParser();
+
+        List<MicroService> expected = Arrays.asList(
+                new MicroServiceBuilder().withName("people-command-api").withVersion(PEOPLE_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("material-command-api").withVersion(MATERIAL_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("structure-command-api").withVersion(STRUCTURE_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("structure-query-api").withVersion(STRUCTURE_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("charging-command-api").withVersion(CHARGING_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("assignment-command-api").withVersion(ASSIGNMENT_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("charging-query-api").withVersion(CHARGING_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("scheduling-command-api").withVersion(SCHEDULING_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("scheduling-query-api").withVersion(SCHEDULING_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("progression-command-api").withVersion(PROGRESSION_CONTEXT_VERSION).build(),
+                new MicroServiceBuilder().withName("progression-query-api").withVersion(PROGRESSION_CONTEXT_VERSION).build()
+        );
+
+        File somePom = getFileFromTestResources(DEPENDENCY_VERSIONS_SPECIFIED_FOLDER);
+
+        MicroService actualMicroService = actualPomParser.parse(somePom);
+
+        assertThat(actualMicroService.uses(), is(expected));
+        assertDependenciesVersion(actualMicroService);
+
     }
 
     private void assertDependenciesVersion(MicroService actualMicroService) {

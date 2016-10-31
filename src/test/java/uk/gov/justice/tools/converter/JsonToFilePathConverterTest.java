@@ -15,9 +15,11 @@ public class JsonToFilePathConverterTest {
 
     @Test
     public void convert() throws Exception {
-        Config config = new Config();
-        config.setOutputDirectory(System.getProperty("java.io.tmpdir") + "/");
 
+        Path tempDir = Files.createTempDirectory("dmx");
+
+        Config config = new Config();
+        config.setOutputFilePath(tempDir.toString() + "/contexts.json");
 
         JsonToFilePathConverter testObj = new JsonToFilePathConverter(config);
 
@@ -25,6 +27,7 @@ public class JsonToFilePathConverterTest {
 
         assertThat(new String(Files.readAllBytes(path)), is("{\"name\":\"abc\",\"version\":\"1.1\"}"));
 
+        //delete temp dir?
     }
 
 }

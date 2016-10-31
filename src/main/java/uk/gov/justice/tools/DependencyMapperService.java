@@ -1,4 +1,4 @@
-package uk.gov.justice;
+package uk.gov.justice.tools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;

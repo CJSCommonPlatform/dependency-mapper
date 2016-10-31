@@ -9,6 +9,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.model.Build;
@@ -57,14 +59,10 @@ public class PomParser {
     }
 
     private String fetchDependencyVersion(Dependency dependency, Properties properties) {
-        if (!dependency.getVersion().isEmpty() &&
-                dependency.getVersion().startsWith("$")){
-            for(String key : properties.stringPropertyNames()){
-                String context = key.substring(0, key.indexOf('.'));
-                if(dependency.getArtifactId().startsWith(context))
-                  return properties.getProperty(key);
-            }
-        }
-        return "NA";
+        String version = dependency.getVersion();
+        Pattern pattern = Pattern.compile("([a-z]+.)\\w+");
+        Matcher matcher = pattern.matcher(version);
+
+        return (matcher.find() ? properties.get(matcher.group(0)).toString() : version);
     }
 }

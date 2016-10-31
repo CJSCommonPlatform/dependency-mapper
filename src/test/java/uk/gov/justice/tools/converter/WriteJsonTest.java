@@ -11,7 +11,7 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-public class JsonToFilePathConverterTest {
+public class WriteJsonTest {
 
     @Test
     public void convert() throws Exception {
@@ -21,7 +21,7 @@ public class JsonToFilePathConverterTest {
         Config config = new Config();
         config.setOutputFilePath(tempDir.toString() + "/contexts.json");
 
-        JsonToFilePathConverter testObj = new JsonToFilePathConverter(config);
+        WriteJson testObj = new WriteJson(config);
 
         Path path = testObj.convert("{\"name\":\"abc\",\"version\":\"1.1\"}");
 

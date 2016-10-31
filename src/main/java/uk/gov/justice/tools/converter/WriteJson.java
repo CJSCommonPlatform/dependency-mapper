@@ -8,11 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
-public class JsonToFilePathConverter implements Converter<Path, String> {
+public class WriteJson implements Converter<Path, String> {
 
     private Config config;
 
-    public JsonToFilePathConverter(Config config) {
+    public WriteJson(Config config) {
         this.config = config;
     }
 

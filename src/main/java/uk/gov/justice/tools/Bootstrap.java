@@ -1,7 +1,7 @@
 package uk.gov.justice.tools;
 
 
-import uk.gov.justice.tools.converter.JsonToFilePathConverter;
+import uk.gov.justice.tools.converter.WriteJson;
 
 public class Bootstrap {
 
@@ -20,7 +20,7 @@ public class Bootstrap {
         //prepare DependencyMapper service
         DependencyMapperService dependencyMapperService = new DependencyMapperService(config);
 
-        JsonToFilePathConverter jsonToFilePathConverter = new JsonToFilePathConverter(config);
-        jsonToFilePathConverter.convert(dependencyMapperService.generate());
+        WriteJson writeJson = new WriteJson(config);
+        writeJson.convert(dependencyMapperService.generate());
     }
 }

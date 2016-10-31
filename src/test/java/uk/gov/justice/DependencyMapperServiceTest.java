@@ -2,6 +2,7 @@ package uk.gov.justice;
 
 import org.junit.Test;
 import uk.gov.justice.tools.Config;
+import uk.gov.justice.tools.DependencyMapperService;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,7 +15,7 @@ public class DependencyMapperServiceTest {
 
         Config config = new Config();
         config.setRootDirectory(rootFolder);
-        config.setOutputDirectory("NA");
+        config.setOutputFilePath("NA");
 
         DependencyMapperService service = new DependencyMapperService(config);
 
@@ -30,7 +31,7 @@ public class DependencyMapperServiceTest {
 
         Config config = new Config();
         config.setRootDirectory(rootFolder);
-        config.setOutputDirectory("NA");
+        config.setOutputFilePath("NA");
 
         DependencyMapperService service = new DependencyMapperService(config);
 

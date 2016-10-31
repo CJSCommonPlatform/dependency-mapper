@@ -5,7 +5,7 @@ public class Config {
 
     private String rootDirectory;
 
-    private String outputDirectory;
+    private String outputFilePath;
 
     public String getRootDirectory() {
         return rootDirectory;
@@ -15,11 +15,11 @@ public class Config {
         this.rootDirectory = rootDirectory;
     }
 
-    public String getOutputDirectory() {
-        return outputDirectory;
+    public String getOutputFilePath() {
+        return outputFilePath;
     }
 
-    public void setOutputDirectory(String outputDirectory) {
-        this.outputDirectory = outputDirectory;
+    public void setOutputFilePath(String outputDirectory) {
+        this.outputFilePath = outputDirectory;
     }
 }

@@ -64,8 +64,11 @@ public class PomParser {
         if (StringUtils.isNotBlank(version) && version.contains("$")) {
             Pattern pattern = Pattern.compile("([a-z]+.)\\w+");
             Matcher matcher = pattern.matcher(version);
-            return (matcher.find() ? properties.get(matcher.group(0)).toString() : version);
-        } else
-            return version == null ? "NA" : version;
+            if(matcher.find()) {
+                Object o = properties.get(matcher.group(0));
+                return ( o != null? o.toString() : version);
+            }
+        }
+        return version == null ? "NA" : version;
     }
 }

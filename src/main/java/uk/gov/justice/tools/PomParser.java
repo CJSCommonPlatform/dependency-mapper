@@ -30,7 +30,7 @@ public class PomParser {
         //name
         String artifactId = model.getArtifactId();
         if (StringUtils.isBlank(artifactId))
-            throw new PomParserException(pom, "ArtifactId is missing");
+            throw new PomParserException(pom, "ArtifactId is missing form pom file [" + pom.getAbsolutePath() + "]");
 
         //version
         String version = model.getVersion();

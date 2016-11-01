@@ -54,21 +54,36 @@ public class PomParser {
 
     private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, Properties properties) {
         if (dependency != null && dependency.getClassifier() != null && dependency.getClassifier().equals("raml")) {
-            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency, properties)).build());
+            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), properties)).build());
         }
     }
 
-    private String fetchDependencyVersion(Dependency dependency, Properties properties) {
-        String version = dependency.getVersion();
+    private String fetchDependencyVersion(String version, Properties properties) {
 
-        if (StringUtils.isNotBlank(version) && version.contains("$")) {
-            Pattern pattern = Pattern.compile("([a-z]+.)\\w+");
-            Matcher matcher = pattern.matcher(version);
-            if(matcher.find()) {
-                Object o = properties.get(matcher.group(0));
-                return ( o != null? o.toString() : version);
-            }
+        // Check if no version specified
+        if(version == null) {
+            return "NA";
+        } else if(isVariable(version)) {
+            Object propertyVersionValue = properties.get(parseVariableName(version));
+            return propertyVersionValue != null ? propertyVersionValue.toString() : version;
+        } else {
+            return version;
         }
-        return version == null ? "NA" : version;
+    }
+
+    private boolean isVariable(String version) {
+        Pattern anyVariablePattern = Pattern.compile("([${]+.)\\w+");
+        Matcher anyVariableMatcher = anyVariablePattern.matcher(version);
+        return anyVariableMatcher.find();
+    }
+
+    private String parseVariableName(String version) {
+        Pattern variableNamePattern = Pattern.compile("([a-z]+.)\\w+");
+        Matcher variableNameMatcher = variableNamePattern.matcher(version);
+        if(variableNameMatcher.find()) {
+            return variableNameMatcher.group(0);
+        } else {
+            return "NA";
+        }
     }
 }

@@ -100,7 +100,7 @@ public class PomParserTest {
     }
 
     @Test
-    public void shouldContainDependenciesIncludingVersions() throws Exception {
+    public void shouldResolveVersionDataFromVariables() throws Exception {
         PomParser actualPomParser = new PomParser();
 
         List<MicroService> expected = Arrays.asList(
@@ -128,7 +128,7 @@ public class PomParserTest {
 
 
     @Test
-    public void shouldReturnNoVersionInformationWhenDependencyHasNoVersionSpecified() throws Exception {
+    public void shouldResolveVersionDataAsUnavilable() throws Exception {
         PomParser actualPomParser = new PomParser();
 
         List<MicroService> expected = Arrays.asList(
@@ -154,7 +154,7 @@ public class PomParserTest {
     }
 
     @Test
-    public void shouldReturnExactVersionsWhenDependenciesHaveVersionsSpecified() throws Exception {
+    public void shouldResolveVersionDataFromVersionValues() throws Exception {
         PomParser actualPomParser = new PomParser();
 
         List<MicroService> expected = Arrays.asList(

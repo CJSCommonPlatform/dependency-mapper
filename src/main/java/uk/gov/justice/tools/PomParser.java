@@ -20,6 +20,8 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 
 public class PomParser {
 
+    private static String VERSION_NOT_AVAILABLE = "NA";
+
     public MicroService parse(File pom) throws Exception {
         MavenXpp3Reader reader = new MavenXpp3Reader();
         Model model = reader.read(new FileReader(pom));
@@ -62,7 +64,7 @@ public class PomParser {
 
         // Check if no version specified
         if(version == null) {
-            return "NA";
+            return VERSION_NOT_AVAILABLE;
         } else if(isVariable(version)) {
             Object propertyVersionValue = properties.get(parseVariableName(version));
             return propertyVersionValue != null ? propertyVersionValue.toString() : version;
@@ -83,7 +85,7 @@ public class PomParser {
         if(variableNameMatcher.find()) {
             return variableNameMatcher.group(0);
         } else {
-            return "NA";
+            return VERSION_NOT_AVAILABLE;
         }
     }
 }

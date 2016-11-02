@@ -21,6 +21,8 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 public class PomParser {
 
     private static String VERSION_NOT_AVAILABLE = "NA";
+    private static String PROJECT_VERSION = "project.version";
+
 
     public MicroService parse(File pom) throws Exception {
         MavenXpp3Reader reader = new MavenXpp3Reader();
@@ -37,14 +39,13 @@ public class PomParser {
         version = StringUtils.isNotBlank(version) ? version : model.getParent().getVersion();
 
         MavenProject project = new MavenProject(model);
-        Properties properties = project.getProperties();
 
         //uses
         List<MicroService> usesMicroServices = new ArrayList<MicroService>();
         Build build = model.getBuild();
         if (build != null) {
             build.getPlugins().forEach(plugin -> plugin.getDependencies()
-                    .forEach(dependency -> addDependency(usesMicroServices, dependency, properties)));
+                    .forEach(dependency -> addDependency(usesMicroServices, dependency, project)));
         }
 
         return new MicroServiceBuilder()
@@ -54,22 +55,27 @@ public class PomParser {
                 .build();
     }
 
-    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, Properties properties) {
+    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, MavenProject project) {
         if (dependency != null && dependency.getClassifier() != null && dependency.getClassifier().equals("raml")) {
-            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), properties)).build());
+            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), project.getVersion(), project.getProperties())).build());
         }
     }
 
-    private String fetchDependencyVersion(String version, Properties properties) {
+    private String fetchDependencyVersion(String dependencyVersion, String projectVersion, Properties properties) {
 
         // Check if no version specified
-        if(version == null) {
+        if(dependencyVersion == null) {
             return VERSION_NOT_AVAILABLE;
-        } else if(isVariable(version)) {
-            Object propertyVersionValue = properties.get(parseVariableName(version));
-            return propertyVersionValue != null ? propertyVersionValue.toString() : version;
+        } else if(isVariable(dependencyVersion)) {
+            String versionFromPom = parseVariableName(dependencyVersion);
+            if(versionFromPom.equals(PROJECT_VERSION)) {
+                    return projectVersion;
+            }else {
+                Object propertyVersionValue = properties.get(versionFromPom);
+                return propertyVersionValue != null ? propertyVersionValue.toString() : dependencyVersion;
+            }
         } else {
-            return version;
+            return dependencyVersion;
         }
     }
 

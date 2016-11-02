@@ -20,6 +20,7 @@ public class PomParserTest {
     private static final String FAULTY_FOLDER = "faulty";
     private static final String NO_DEPENDENCY_VERSIONS_FOLDER = "no_dep_versions";
     private static final String DEPENDENCY_VERSIONS_SPECIFIED_FOLDER = "dep_versions_specified";
+    private static final String PROJECT_VERSION_SPECIFIED_FOLDER = "project_version_specified";
     public static final String PEOPLE_CONTEXT_VERSION = "2.0.23";
     public static final String MATERIAL_CONTEXT_VERSION = "2.0.18";
     public static final String STRUCTURE_CONTEXT_VERSION = "2.0.49";
@@ -178,6 +179,22 @@ public class PomParserTest {
         assertThat(actualMicroService.uses(), is(expected));
         assertDependenciesVersion(actualMicroService);
 
+    }
+
+    @Test
+    public void shouldResolveVersionDataFromProjectVersionVariable() throws Exception {
+        PomParser actualPomParser = new PomParser();
+
+        String expected_dep_version = "2.0.33-SNAPSHOT";
+        List<MicroService> expected = Arrays.asList(
+                new MicroServiceBuilder().withName("assignment-query-controller").withVersion(expected_dep_version).build());
+
+        File somePom = getFileFromTestResources(PROJECT_VERSION_SPECIFIED_FOLDER);
+
+        MicroService actualMicroService = actualPomParser.parse(somePom);
+
+        assertThat(actualMicroService.uses(), is(expected));
+        actualMicroService.uses().forEach(dep -> assertThat(dep.getVersion(), is(expected_dep_version)));
     }
 
     private void assertDependenciesVersion(MicroService actualMicroService) {

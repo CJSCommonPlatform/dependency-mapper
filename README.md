@@ -13,10 +13,10 @@ The Dependency Mapper project is made up of two separate parts:
 
  Set system properties:
 
- * rootDirectory: Directory location where pom files will be read from default is `/opt`
- * outputFilePath: Directory location AND file name where generated file will be published, default is `/opt/contexts.json`
- * ramlReportDir: RAML report dir, default is `/opt/raml-reports/`
+ * dmx.contexts.dir: Directory location where pom files will be read from default is `/opt`
+ * dmx.contexts.map.file: Directory location AND file name where generated file will be published, default is `/opt/contexts.json`
+ * dmx.raml.reports.dir: RAML report dir, default is `/opt/raml-reports/`
 
- e.g.: `java -DramlReportDir=/opt/any/ -DrootDirectory=/opt/dmx -DoutputFilePath=/opt/dmx/contexts1.json -jar target/dependency-mapper.jar
+ e.g.: `java -Ddmx.raml.reports.dir=/opt/any/ -Ddmx.contexts.dir=/opt/dmx -dmx.contexts.map.file=/opt/dmx/contexts1.json -jar target/dependency-mapper.jar
 `
 

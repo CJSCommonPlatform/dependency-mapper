@@ -20,14 +20,14 @@ import raml.tools.html.Raml2HtmlConverter;
 public class Bootstrap {
 
     private static final String ROOT_DIRECTORY =
-            System.getenv("rootDirectory") != null ?
-                    System.getenv("rootDirectory") : System.getProperty("rootDirectory", "/opt/");
+            System.getenv("dmx.contexts.dir") != null ?
+                    System.getenv("dmx.contexts.dir") : System.getProperty("dmx.contexts.dir", "/opt/");
     private static final String OUTPUT_FILE_PATH =
-            System.getenv("outputFilePath") != null ?
-                    System.getenv("outputFilePath") : System.getProperty("outputFilePath", "/opt/contexts.json");
+            System.getenv("dmx.contexts.map.file") != null ?
+                    System.getenv("dmx.contexts.map.file") : System.getProperty("dmx.contexts.map.file", "/opt/contexts.json");
     private static String RAML_REPORT_DIR =
-            System.getenv("ramlReportDir") != null ?
-                    System.getenv("ramlReportDir") : System.getProperty("ramlReportDir", "/opt/raml-reports/");
+            System.getenv("dmx.raml.reports.dir") != null ?
+                    System.getenv("dmx.raml.reports.dir") : System.getProperty("dmx.raml.reports.dir", "/opt/raml-reports/");
 
 
     public static void main(String[] args) throws Exception {

@@ -25,6 +25,10 @@ public class Bootstrap {
     private static final String OUTPUT_FILE_PATH =
             System.getenv("outputFilePath") != null ?
                     System.getenv("outputFilePath") : System.getProperty("outputFilePath", "/opt/contexts.json");
+    private static String RAML_REPORT_DIR =
+            System.getenv("ramlReportDir") != null ?
+                    System.getenv("ramlReportDir") : System.getProperty("ramlReportDir", "/opt/raml-reports/");
+
 
     public static void main(String[] args) throws Exception {
         Config config = new Config();
@@ -61,7 +65,7 @@ public class Bootstrap {
         Raml2HtmlConverter raml2HtmlConverter = new Raml2HtmlConverter();
         raml2HtmlConverter.withRamlBasePath(file.getParent());
         return new Html(raml2HtmlConverter.convert(ramlInput, new ByteArrayOutputStream()).toString(),
-                "c:/temp/ramltohtml/" + file.getName().replace("raml", "html"));
+                RAML_REPORT_DIR + file.getName().replace("raml", "html"));
     };
 
     private static class Html {

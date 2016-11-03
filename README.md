@@ -15,8 +15,8 @@ The Dependency Mapper project is made up of two separate parts:
 
  * rootDirectory: Directory location where pom files will be read from default is `/opt`
  * outputFilePath: Directory location AND file name where generated file will be published, default is `/opt/contexts.json`
-
- e.g.: `java -DrootDirectory=/opt/dmx -DoutputFilePath=/opt/dmx/contexts1.json -jar target/dependency-mapper.jar
+ 
+ e.g.: `java -DrootDirectory=/opt/dmx/ -DoutputFilePath=/opt/dmx/contexts1.json -jar target/dependency-mapper.jar
 `
 
 ## Shell Script (HTML documentation)

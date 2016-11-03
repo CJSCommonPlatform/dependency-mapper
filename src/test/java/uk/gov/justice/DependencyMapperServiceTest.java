@@ -10,11 +10,8 @@ public class DependencyMapperServiceTest {
 
     @Test
     public void shouldProduceJsonBasedOnInputFolder() throws Exception {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String rootFolder = classLoader.getResource("./root").getPath();
-
         Config config = new Config();
-        config.setRootDirectory(rootFolder);
+        config.setRootDirectory("src/test/resources/root/");
         config.setOutputFilePath("NA");
 
         DependencyMapperService service = new DependencyMapperService(config);
@@ -26,11 +23,8 @@ public class DependencyMapperServiceTest {
 
     @Test
     public void shouldNotProduceJsonWhenInputFolderHasNoPomFiles() throws Exception {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String rootFolder = classLoader.getResource("./no_pom_here").getPath();
-
         Config config = new Config();
-        config.setRootDirectory(rootFolder);
+        config.setRootDirectory("src/test/resources/no_pom_here/");
         config.setOutputFilePath("NA");
 
         DependencyMapperService service = new DependencyMapperService(config);

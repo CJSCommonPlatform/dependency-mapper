@@ -13,15 +13,14 @@ import org.junit.Test;
 
 public class FileFinderTest {
 
-    private static final String ROOT_FOLDER = "root";
+    private static final String ROOT_FOLDER = "src/test/resources/root/";
 
     FileFinder testObj;
 
     @Before
     public void setup() {
-        ClassLoader classLoader = getClass().getClassLoader();
         Config config = new Config();
-        config.setRootDirectory(classLoader.getResource("./".concat(ROOT_FOLDER)).getPath());
+        config.setRootDirectory(ROOT_FOLDER);
         testObj = new FileFinder(config);
     }
 
@@ -34,6 +33,6 @@ public class FileFinderTest {
     @Test
     public void testFindRamlFiles() throws IOException {
         List<File> ramlFiles = testObj.findRamlFiles();
-        assertThat(ramlFiles.size(), is(0));
+        assertThat(ramlFiles.size(), is(1));
     }
 }

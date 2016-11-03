@@ -37,7 +37,7 @@ public class FileFinder {
     private List<File> findFilesMatchingFilename(String path, String filenamePattern) throws IOException {
         List<File> files = new ArrayList<>();
         Files.find(Paths.get(path), Integer.MAX_VALUE,
-                (p, bfa) -> bfa.isRegularFile() && p.endsWith(filenamePattern))
+                (p, bfa) -> bfa.isRegularFile() && p.normalize().toString().endsWith(filenamePattern))
                 .map(p -> p.toFile())
                 .forEach(files::add);
         return files;

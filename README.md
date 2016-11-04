@@ -13,7 +13,7 @@ The Dependency Mapper project is made up of two separate parts:
 
  Set system properties:
 
- * dmx.contexts.dir: Directory location where pom files will be read from default is `/opt`
+ * dmx.contexts.dir: Directory location where pom files will be read from default is `/opt/contexts`
  * dmx.contexts.map.file: Directory location AND file name where generated file will be published, default is `/opt/contexts.json`
  * dmx.raml.reports.dir: RAML report dir, default is `/opt/raml-reports/`
 

@@ -2,6 +2,7 @@ package uk.gov.justice.tools;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import uk.gov.justice.builders.MicroService;
 import uk.gov.justice.builders.MicroServiceBuilder;
@@ -9,6 +10,7 @@ import uk.gov.justice.builders.MicroServiceBuilder;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Test;
 
@@ -21,6 +23,7 @@ public class PomParserTest {
     private static final String NO_DEPENDENCY_VERSIONS_FOLDER = "no_dep_versions";
     private static final String DEPENDENCY_VERSIONS_SPECIFIED_FOLDER = "dep_versions_specified";
     private static final String PROJECT_VERSION_SPECIFIED_FOLDER = "project_version_specified";
+    private static final String PARENT_HAVING_VERSION_VARIABLES_CHILD_FOLDER = "parent_has_version_variables/branch";
     public static final String PEOPLE_CONTEXT_VERSION = "2.0.23";
     public static final String MATERIAL_CONTEXT_VERSION = "2.0.18";
     public static final String STRUCTURE_CONTEXT_VERSION = "2.0.49";
@@ -71,6 +74,31 @@ public class PomParserTest {
         MicroService actualMicroService = actualPomParser.parse(somePom);
 
         assertThat(actualMicroService.getVersion(), is("2.0.70-SNAPSHOT"));
+    }
+
+    @Test
+    public void shouldParseParentPomProperties() throws Exception{
+        PomParser actualPomParser = new PomParser();
+
+        File somePom = getFileFromTestResources(BRANCH_FOLDER);
+
+        Properties expectedProps = new Properties();
+        expectedProps.put("people.version", PEOPLE_CONTEXT_VERSION);
+        expectedProps.put("material.version", MATERIAL_CONTEXT_VERSION);
+        expectedProps.put("structure.version", STRUCTURE_CONTEXT_VERSION);
+        expectedProps.put("charging.version", CHARGING_CONTEXT_VERSION);
+        expectedProps.put("assignment.version", ASSIGNMENT_CONTEXT_VERSION);
+        expectedProps.put("scheduling.version", SCHEDULING_CONTEXT_VERSION);
+        expectedProps.put("progression.version", PROGRESSION_CONTEXT_VERSION);
+        expectedProps.put("cpp.service-component", "EVENT_PROCESSOR");
+        expectedProps.put("activiti.version", "5.20.0");
+
+        Properties actualProps = actualPomParser.fetchParentPomProperties(somePom);
+
+        actualProps.stringPropertyNames().forEach(actualKey -> {
+            assertTrue(expectedProps.containsKey(actualKey));
+            assertThat(actualProps.getProperty(actualKey), is(expectedProps.getProperty(actualKey)));
+        });
     }
 
 
@@ -127,9 +155,42 @@ public class PomParserTest {
         assertDependenciesVersion(actualMicroService);
     }
 
+    @Test
+    public void shouldResolveVersionDataFromParentPomVariables() throws Exception {
+        PomParser actualPomParser = new PomParser();
+
+        String structureQueryViewVersion = "2.0.102-SNAPSHOT";
+        String assignmentQueryApiVersion = "2.0.11";
+        String chargingQueryApiVersion = "2.0.149";
+        String peopleQueryApiVersion = "2.0.16";
+        List<MicroService> expected = Arrays.asList(
+                new MicroServiceBuilder().withName("structure-query-view").withVersion(structureQueryViewVersion).build(),
+                new MicroServiceBuilder().withName("assignment-query-api").withVersion(assignmentQueryApiVersion).build(),
+                new MicroServiceBuilder().withName("charging-query-api").withVersion(chargingQueryApiVersion).build(),
+                new MicroServiceBuilder().withName("people-query-api").withVersion(peopleQueryApiVersion).build()
+        );
+
+        File somePom = getFileFromTestResources(PARENT_HAVING_VERSION_VARIABLES_CHILD_FOLDER);
+
+        MicroService actualMicroService = actualPomParser.parse(somePom);
+        assertThat(actualMicroService.uses(), is(expected));
+
+        actualMicroService.uses().forEach(dep -> {
+            if (dep.getName().startsWith(PEOPLE_CONTEXT)){
+                assertThat(dep.getVersion(), is(peopleQueryApiVersion));
+            } else if (dep.getName().startsWith(STRUCTURE_CONTEXT)){
+                assertThat(dep.getVersion(), is(structureQueryViewVersion));
+            } else if (dep.getName().startsWith(CHARGING_CONTEXT)){
+                assertThat(dep.getVersion(), is(chargingQueryApiVersion));
+            } else if (dep.getName().startsWith(ASSIGNMENT_CONTEXT)){
+                assertThat(dep.getVersion(), is(assignmentQueryApiVersion));
+            }
+        });
+    }
+
 
     @Test
-    public void shouldResolveVersionDataAsUnavilable() throws Exception {
+    public void shouldResolveVersionDataAsUnavailable() throws Exception {
         PomParser actualPomParser = new PomParser();
 
         List<MicroService> expected = Arrays.asList(

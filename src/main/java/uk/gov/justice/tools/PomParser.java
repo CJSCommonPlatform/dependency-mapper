@@ -39,13 +39,14 @@ public class PomParser {
         version = StringUtils.isNotBlank(version) ? version : model.getParent().getVersion();
 
         MavenProject project = new MavenProject(model);
+        Properties parentPomProperties = fetchParentPomProperties(pom);
 
         //uses
         List<MicroService> usesMicroServices = new ArrayList<MicroService>();
         Build build = model.getBuild();
         if (build != null) {
             build.getPlugins().forEach(plugin -> plugin.getDependencies()
-                    .forEach(dependency -> addDependency(usesMicroServices, dependency, project)));
+                    .forEach(dependency -> addDependency(usesMicroServices, dependency, project, parentPomProperties)));
         }
 
         return new MicroServiceBuilder()
@@ -55,13 +56,13 @@ public class PomParser {
                 .build();
     }
 
-    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, MavenProject project) {
+    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, MavenProject project, Properties parentProperties) {
         if (dependency != null && dependency.getClassifier() != null && dependency.getClassifier().equals("raml")) {
-            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), project.getVersion(), project.getProperties())).build());
+            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), project, parentProperties)).build());
         }
     }
 
-    private String fetchDependencyVersion(String dependencyVersion, String projectVersion, Properties properties) {
+    private String fetchDependencyVersion(String dependencyVersion, MavenProject mavenProject, Properties parentPomProps) {
 
         // Check if no version specified
         if(dependencyVersion == null) {
@@ -69,9 +70,12 @@ public class PomParser {
         } else if(isVariable(dependencyVersion)) {
             String versionFromPom = parseVariableName(dependencyVersion);
             if(versionFromPom.equals(PROJECT_VERSION)) {
-                    return projectVersion;
+                    return mavenProject.getVersion();
             }else {
-                Object propertyVersionValue = properties.get(versionFromPom);
+                Object propertyVersionValue = mavenProject.getProperties().get(versionFromPom);
+                //deal with variable version from parent
+                propertyVersionValue = propertyVersionValue == null ?
+                        parentPomProps.getProperty(versionFromPom).toString() : propertyVersionValue;
                 return propertyVersionValue != null ? propertyVersionValue.toString() : dependencyVersion;
             }
         } else {
@@ -93,5 +97,23 @@ public class PomParser {
         } else {
             return VERSION_NOT_AVAILABLE;
         }
+    }
+
+    public Properties fetchParentPomProperties(File somePom) throws Exception {
+        Properties props = new Properties();
+        if(somePom != null && somePom.isFile()){
+            File parent = somePom.getParentFile().getParentFile();
+            if(parent.isDirectory()){
+                File parentPom = new File(parent.getAbsolutePath().concat(File.separator).concat("pom.xml"));
+                if (parentPom.isFile() && parentPom.exists()) {
+                    MavenXpp3Reader reader = new MavenXpp3Reader();
+                    Model model = reader.read(new FileReader(parentPom));
+                    model.setPomFile(parentPom);
+                    MavenProject project = new MavenProject(model);
+                    return project.getProperties();
+                }
+            }
+        }
+        return props;
     }
 }

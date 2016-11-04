@@ -21,7 +21,7 @@ public class Bootstrap {
 
     private static final String ROOT_DIRECTORY =
             System.getenv("dmx.contexts.dir") != null ?
-                    System.getenv("dmx.contexts.dir") : System.getProperty("dmx.contexts.dir", "/opt/contexts");
+                    System.getenv("dmx.contexts.dir") : System.getProperty("dmx.contexts.dir", "/opt/contexts/");
     private static final String OUTPUT_FILE_PATH =
             System.getenv("dmx.contexts.map.file") != null ?
                     System.getenv("dmx.contexts.map.file") : System.getProperty("dmx.contexts.map.file", "/opt/contexts.json");

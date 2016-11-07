@@ -24,22 +24,22 @@ public class PomParserTest {
     private static final String DEPENDENCY_VERSIONS_SPECIFIED_FOLDER = "dep_versions_specified";
     private static final String PROJECT_VERSION_SPECIFIED_FOLDER = "project_version_specified";
     private static final String PARENT_HAVING_VERSION_VARIABLES_CHILD_FOLDER = "parent_has_version_variables/branch";
-    public static final String PEOPLE_CONTEXT_VERSION = "2.0.23";
-    public static final String MATERIAL_CONTEXT_VERSION = "2.0.18";
-    public static final String STRUCTURE_CONTEXT_VERSION = "2.0.49";
-    public static final String CHARGING_CONTEXT_VERSION = "2.0.85";
-    public static final String ASSIGNMENT_CONTEXT_VERSION = "2.0.11";
-    public static final String SCHEDULING_CONTEXT_VERSION = "2.0.24";
-    public static final String PROGRESSION_CONTEXT_VERSION = "2.0.21";
+    private static final String PEOPLE_CONTEXT_VERSION = "2.0.23";
+    private static final String MATERIAL_CONTEXT_VERSION = "2.0.18";
+    private static final String STRUCTURE_CONTEXT_VERSION = "2.0.49";
+    private static final String CHARGING_CONTEXT_VERSION = "2.0.85";
+    private static final String ASSIGNMENT_CONTEXT_VERSION = "2.0.11";
+    private static final String SCHEDULING_CONTEXT_VERSION = "2.0.24";
+    private static final String PROGRESSION_CONTEXT_VERSION = "2.0.21";
 
-    public static final String PEOPLE_CONTEXT = "people";
-    public static final String MATERIAL_CONTEXT = "material";
-    public static final String STRUCTURE_CONTEXT = "structure";
-    public static final String CHARGING_CONTEXT = "charging";
-    public static final String ASSIGNMENT_CONTEXT = "assignment";
-    public static final String SCHEDULING_CONTEXT = "scheduling";
-    public static final String PROGRESSION_CONTEXT = "progression";
-    public static final String NO_VERSION = "NA";
+    private static final String PEOPLE_CONTEXT = "people";
+    private static final String MATERIAL_CONTEXT = "material";
+    private static final String STRUCTURE_CONTEXT = "structure";
+    private static final String CHARGING_CONTEXT = "charging";
+    private static final String ASSIGNMENT_CONTEXT = "assignment";
+    private static final String SCHEDULING_CONTEXT = "scheduling";
+    private static final String PROGRESSION_CONTEXT = "progression";
+    private static final String NO_VERSION = "NA";
 
 
     @Test
@@ -259,7 +259,7 @@ public class PomParserTest {
     }
 
     private void assertDependenciesVersion(MicroService actualMicroService) {
-        actualMicroService.uses().forEach(dep -> assertDependency(dep));
+        actualMicroService.uses().forEach(this::assertDependency);
     }
 
     private void assertDependency(MicroService dep) {
@@ -289,7 +289,6 @@ public class PomParserTest {
         }
         if (dep.getName().startsWith(PROGRESSION_CONTEXT)) {
             assertThat(dep.getVersion(), is(PROGRESSION_CONTEXT_VERSION));
-            return;
         }
     }
 

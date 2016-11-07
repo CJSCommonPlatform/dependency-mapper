@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer"
+    },
+    "codeTestAnalysis": {
+      "type": "object",
+      "oneOf": [{
+        "properties": {
+            "codeTestLevel": {
+                "enum": ["FULL_CODE_TEST"]
+            },
+             "codeTestOutcome": {
+                 "enum": ["FULL_CODE_TEST_MET"]
+           }
+        },
+        "additionalProperties": false,
+         "required": [
+         "codeTestLevel", "codeTestOutcome"
+         ]
+    },
+    
+    {
+        "properties": {
+            "codeTestLevel": {
+                "enum": ["THRESHOLD_TEST"]
+            },
+             "codeTestOutcome": {
+                 "enum": ["THRESHOLD_TEST_MET"]
+           }
+        },
+        "additionalProperties": false,
+         "required": [
+         "codeTestLevel", "codeTestOutcome"
+         ]
+    },
+    
+    {
+        "properties": {
+            "codeTestLevel": {
+                "enum": ["FULL_CODE_TEST"]
+            },
+             "codeTestOutcome": {
+                 "enum": ["FULL_CODE_TEST_NOT_MET_INSUFFICIENT_EVIDENCE"]
+           },
+           
+            "reasonCode": {
+                 "enum": ["E40", "E42", "E43", "E44", "E45", "E46", "E51",  "E54"]
+           },
+
+           "reasonText": {
+                "type": "string",
+                "pattern": "^(?!\\s*$).+"
+            }
+        },
+        "additionalProperties": false,
+         "required": [
+         "codeTestLevel", "codeTestOutcome", "reasonCode", "reasonText"
+         ]
+    },
+    
+        {
+        "properties": {
+            "codeTestLevel": {
+                "enum": ["THRESHOLD_TEST"]
+            },
+             "codeTestOutcome": {
+                 "enum": ["THRESHOLD_TEST_NOT_MET"]
+           },
+           
+            "reasonCode": {
+                 "enum": ["E40", "E42", "E43", "E44", "E45", "E46", "E51",  "E54"]
+           },
+
+           "reasonText": {
+                "type": "string",
+                "pattern": "^(?!\\s*$).+"
+            }
+        },
+        "additionalProperties": false,
+         "required": [
+         "codeTestLevel", "codeTestOutcome", "reasonCode", "reasonText"
+         ]
+    },
+    
+    {
+        "properties": {
+            "codeTestLevel": {
+                "enum": ["FULL_CODE_TEST"]
+            },
+             "codeTestOutcome": {
+                 "enum": ["FULL_CODE_TEST_NOT_MET_PUBLIC_INTEREST"]
+           },
+           
+            "reasonCode": {
+                 "enum": ["P57", "P58", "P59", "P60", "P61", "P62", "P63", "P64", "P67", "P68"]
+           },
+
+           "reasonText": {
+                "type": "string",
+                "pattern": "^(?!\\s*$).+"
+            }
+        },
+        "additionalProperties": false,
+         "required": [
+         "codeTestLevel", "codeTestOutcome", "reasonCode", "reasonText"
+         ]
+    }
+    
+    ]
+     
+  }
+},
+  "required": [
+    "version",  "codeTestAnalysis"
+  ]
+}

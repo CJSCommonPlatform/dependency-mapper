@@ -6,6 +6,7 @@ public class Config {
     private String rootDirectory;
 
     private String outputFilePath;
+    private String ramlReportDirectory;
 
     public String getRootDirectory() {
         return rootDirectory;
@@ -21,5 +22,13 @@ public class Config {
 
     public void setOutputFilePath(String outputDirectory) {
         this.outputFilePath = outputDirectory;
+    }
+
+    public void setRamlReportDirectory(String ramlReportDirectory) {
+        this.ramlReportDirectory = ramlReportDirectory;
+    }
+
+    public String getRamlReportDirectory() {
+        return ramlReportDirectory;
     }
 }

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "proposedChargeId": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "charge": {
+      "type": "object",
+      "properties": {
+        "cjsCode": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "fromDate": {
+          "type": "string"
+        },
+        "toDate": {
+          "type": "string"
+        },
+        "particulars": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string"
+            },
+            "postCode": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "proposedChargeId",
+    "version",
+    "charge"
+  ]
+}

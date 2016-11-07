@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "assignmentNatureType": {
+      "id": "assignmentNatureType",
+      "type": "string"
+    },
+    "domainObjectId": {
+      "id": "domainObjectId",
+      "type": "string"
+    }
+  },
+  "required": [
+    "assignmentNatureType",
+    "domainObjectId"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer",
+      "id": "version"
+    },
+    "contestedIssues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "issue": {
+            "type": "string",
+            "id": "issue"
+          }
+        },
+        "id": "1",
+        "required": [
+          "issue"
+        ]
+      },
+      "id": "contestedIssues"
+    }
+  },
+  "id": "/",
+  "required": [
+    "version",
+    "contestedIssues"
+  ]
+}

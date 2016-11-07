@@ -1,0 +1,35 @@
+{
+  "caseId": "4a5c89d8-5c12-48a6-a959-6ad2cc23f423",
+  "aggregateId": "c6505e72-8706-421a-9333-aefcb9dba407",
+  "suspects": [
+    {
+      "suspectId": "c6505e72-8706-421a-9333-aefcb9dba408",
+      "proposedCharges": [
+        {
+          "id": "c6505e72-8706-421a-9333-aefcb9dba408",
+          "uniqueId": "uniqueId from TWIF system",
+          "cjsCode": "cjsCode1",
+          "description": "description",
+          "category": "category",
+          "fromDate": "2015-10-10",
+          "toDate": "2015-10-10",
+          "particulars": {
+            "address": "10 downing street"
+          }
+        },
+        {
+          "id": "c6505e72-8706-421a-9333-aefcb9dba408",
+          "uniqueId": "uniqueId from TWIF system",
+          "cjsCode": "cjsCode2",
+          "description": "description",
+          "category": "category",
+          "fromDate": "2015-10-10",
+          "toDate": "2015-10-10",
+          "particulars": {
+            "address": "11 downing street"
+          }
+        }
+      ]
+    }
+  ]
+}

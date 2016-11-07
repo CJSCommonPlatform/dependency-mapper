@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "id": {
+      "id": "id",
+      "type": "string"
+    },
+    "version": {
+      "id": "version",
+      "type": "integer"
+    },
+    "domainObjectId": {
+      "id": "domainObjectId",
+      "type": "string"
+    },
+    "assignmentNatureType": {
+      "id": "assignmentNatureType",
+      "type": "string"
+    },
+    "assignee": {
+      "id": "assignee",
+      "type": ["string", "null"]
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "domainObjectId",
+    "assignmentNatureType"
+  ]
+}

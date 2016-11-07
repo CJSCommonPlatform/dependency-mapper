@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer"
+    },
+    "charge": {
+      "type": "object",
+      "properties": {
+        "cjsCode": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "fromDate": {
+          "type": "string"
+        },
+        "toDate": {
+          "type": "string"
+        },
+        "particulars": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string"
+            },
+            "postCode": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "cjsCode",
+        "fromDate"
+      ]
+    }
+  },
+  "required": [
+    "version",
+    "charge"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "properties": {
+  "version":{
+      "id": "/version",
+      "type": "integer"
+    },
+  "aggravatingMitigating": {
+      "id": "/aggravatingMitigating",
+      "type": "string"
+    }
+  }
+}

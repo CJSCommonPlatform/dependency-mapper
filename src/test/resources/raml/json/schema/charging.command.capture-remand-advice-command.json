@@ -1,0 +1,54 @@
+{
+  "oneOf": [
+    {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "reviewId": {
+          "type": "string"
+        },
+        "suspectId": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "SUMMONS_OR_POSTAL_REQUISITION_ONLY",
+            "UNCONDITIONAL_BAIL"
+          ]
+        }
+      },
+      "required": [
+        "reviewId",
+        "suspectId",
+        "type"
+      ]
+    },
+    {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "reviewId": {
+          "type": "string"
+        },
+        "suspectId": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "CONDITIONAL_BAIL",
+            "REMAND_IN_CUSTODY"
+          ]
+        },
+        "groundsOrConditions": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewId",
+        "suspectId",
+        "type",
+        "groundsOrConditions"
+      ]
+    }
+  ]
+}

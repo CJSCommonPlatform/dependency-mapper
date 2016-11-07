@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "properties": {
+    "statusFlag": {
+      "id": "/statusFlag",
+      "type": [
+        "boolean"
+      ]
+    },
+    "echr": {
+      "id": "/echr",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "statusFlag"
+  ]
+}

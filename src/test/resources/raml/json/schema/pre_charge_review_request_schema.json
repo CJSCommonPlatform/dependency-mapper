@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The aggregate id",
+      "type": "string"
+    },
+    "caseId": {
+      "description": "The cpp case id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "caseId"
+  ]
+}

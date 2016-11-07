@@ -1,8 +1,8 @@
-package uk.gov.justice;
+package uk.gov.justice.tools.service;
 
 import org.junit.Test;
 import uk.gov.justice.tools.Config;
-import uk.gov.justice.tools.DependencyMapperService;
+import uk.gov.justice.tools.service.DependencyMapperService;
 
 import static org.junit.Assert.assertTrue;
 

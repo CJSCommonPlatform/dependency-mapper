@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "caseId": {
+      "type": "string"
+    },
+    "aggregateId": {
+      "type": "string"
+    },
+    "suspects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "suspectId": {
+            "type": "string"
+          },
+          "proposedCharges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "uniqueId": {
+                  "type": "string"
+                },
+                "cjsCode": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "fromDate": {
+                  "type": "string"
+                },
+                "toDate": {
+                  "type": "string"
+                },
+                "particulars": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "type": "string"
+                    },
+                    "postCode": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "caseId",
+    "aggregateId",
+    "suspects"
+  ]
+}

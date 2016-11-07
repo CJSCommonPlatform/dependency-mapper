@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "charge": {
+    "cjsCode": "cjsCode1",
+    "category": "category",
+    "fromDate": "2015-10-10",
+    "toDate": "2015-10-10",
+    "particulars": {
+      "address": "10 downing street"
+    },
+    "description": "description"
+  }
+}

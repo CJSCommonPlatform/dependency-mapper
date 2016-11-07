@@ -17,10 +17,14 @@ public class WriteJson implements Converter<Path, String> {
     }
 
     @Override
-    public Path convert(String jsonPayload) throws IOException {
+    public Path convert(String jsonPayload) {
         Path path = Paths.get(config.getOutputFilePath());
-        Files.deleteIfExists(path);
-        Files.createFile(path);
-        return Files.write(path, jsonPayload.getBytes());
+        try {
+            Files.deleteIfExists(path);
+            Files.createFile(path);
+            return Files.write(path, jsonPayload.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

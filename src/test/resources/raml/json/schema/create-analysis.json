@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "properties": {
+    "suspectPersonId": {
+      "id": "/suspectPersonId",
+      "type": "string"
+    },
+    "version": {
+      "id": "/version",
+      "type": "integer"
+    },
+    "decision": {
+      "id": "/decision",
+      "type": "string"
+    },
+    "reasons": {
+      "id": "/reasons",
+      "type": "array",
+      "items": [
+        {
+          "id": "/reasons/0",
+          "type": "string"
+        },
+        {
+          "id": "/reasons/1",
+          "type": "string"
+        },
+        {
+          "id": "/reasons/2",
+          "type": "string"
+        }
+      ]
+    },
+    "explanation": {
+      "id": "/explanation",
+      "type": "string"
+    }
+  },
+  "required": [
+    "suspectPersonId",
+    "version",
+    "decision",
+    "reasons",
+    "explanation"
+  ]
+}

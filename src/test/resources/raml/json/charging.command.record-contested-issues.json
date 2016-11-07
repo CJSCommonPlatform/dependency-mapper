@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "contestedIssues": [
+    {
+      "issue": "free text, contested issue-1"
+    },
+    {
+      "issue": "free text, contested issue-2"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+#%RAML 0.8
+title: Assignment Command
+version: v1
+protocols: [ HTTP ]
+
+baseUri: http://localhost:8080/assignment-command-api/command/api/rest/assignment
+
+/assignments:
+  description: Post to this endpoint to create an assignment.
+  post:
+    description: |
+      ...
+      (mapping):
+          requestType: application/vnd.assignment.command.add-assignment+json
+          name: assignment.command.add-assignment
+      (mapping):
+          requestType: application/vnd.assignment.command.remove-assignment+json
+          name: assignment.command.remove-assignment
+      (mapping):
+          requestType: application/vnd.assignment.command.assign-charging-lawyer-to-review+json
+          name: assignment.command.assign-charging-lawyer-to-review
+      ...
+    body:
+        application/vnd.assignment.command.add-assignment+json:
+           example:
+            !include json/assignment.command.add-assignment.json
+           schema:
+            !include json/schema/assignment.command.add-assignment.json
+        application/vnd.assignment.command.remove-assignment+json:
+           example:
+            !include json/assignment.command.remove-assignment.json
+           schema:
+            !include json/schema/assignment.command.remove-assignment.json
+        application/vnd.assignment.command.assign-charging-lawyer-to-review+json:
+           example:
+            !include json/assignment.command.assign-charging-lawyer-to-review.json
+           schema:
+            !include json/schema/assignment.command.assign-charging-lawyer-to-review.json
+    responses:
+            500:
+              description: Internal Server Error
+            202:
+              description: OK

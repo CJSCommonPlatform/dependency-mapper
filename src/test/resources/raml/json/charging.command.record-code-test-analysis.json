@@ -1,0 +1,11 @@
+{
+    "version": 1,
+    "codeTestAnalysis": {
+        "codeTestLevel": "FULL_CODE_TEST",
+        "codeTestOutcome": "FULL_CODE_TEST_NOT_MET_INSUFFICIENT_EVIDENCE",
+        "reasonCode": "E40",
+        "reasonText": "Inadmissible evidence so"
+       
+    }
+
+}

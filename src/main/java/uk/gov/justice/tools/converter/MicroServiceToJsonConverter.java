@@ -15,7 +15,11 @@ public class MicroServiceToJsonConverter implements Converter<String, MicroServi
         objectMapper.registerModule(new Jdk8Module());
     }
 
-    public String convert(MicroService from) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(from);
+    public String convert(MicroService from) {
+        try {
+            return objectMapper.writeValueAsString(from);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

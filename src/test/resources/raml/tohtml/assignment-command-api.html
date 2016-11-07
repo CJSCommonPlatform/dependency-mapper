@@ -1,0 +1,396 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Assignment Command documentation</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="generator" content="https://github.com/adrobisch/raml-tools">
+
+    <script type="text/javascript">
+        var protocol = ((document.location.protocol === 'https:') ? 'https:': 'http:');
+        document.write('<link rel="stylesheet" href="' + protocol + '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">');
+        document.write('<script type="text/javascript" src="' + protocol + '//code.jquery.com/jquery-1.11.0.min.js"><\/sc' + 'ript>');
+        document.write('<script type="text/javascript" src="' + protocol + '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"><\/sc' + 'ript>');
+    </script>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+    <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <style>
+      .parent {
+    color: #999;
+}
+.list-group-item > .badge {
+    float: none;
+    margin-right: 6px;
+}
+.panel-title > .block > .methods {
+    float: right;
+}
+.badge {
+    border-radius: 0;
+    text-transform: uppercase;
+    width: 70px;
+    font-weight: normal;
+    color: #f3f3f6;
+    line-height: normal;
+}
+.block .badge {
+    visibility: hidden;
+}
+.block.collapsed .badge {
+    visibility: visible;
+}
+.badge_get {
+    background-color: #63a8e2;
+}
+.badge_post {
+    background-color: #6cbd7d;
+}
+.badge_put {
+    background-color: #22bac4;
+}
+.badge_delete {
+    background-color: #d26460;
+}
+.block {
+    display: block;
+}
+.list-group, .panel-group {
+    margin-bottom: 0;
+}
+.panel-group .panel+.panel-white {
+    margin-top: 0;
+}
+.panel-group .panel-white {
+    border-bottom: 1px solid #F5F5F5;
+    border-radius: 0;
+}
+.panel-white:last-child {
+    border-bottom-color: white;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.panel-white .panel-heading {
+    background: white;
+}
+.tab-pane ul {
+    padding-left: 2em;
+}
+.tab-pane h2 {
+    font-size: 1.2em;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ddd;
+}
+.tab-pane h3 {
+    font-size: 1.1em;
+    font-style: italic;
+}
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+#sidebar {
+    margin-top: 30px;
+}
+.resource-description {
+    border-bottom: 1px solid #ddd;
+    background: #fcfcfc;
+    padding: 15px 15px 0 15px;
+    margin: -15px -15px 10px -15px;
+}
+.list-group .badge {
+    float: left;
+}
+.method_description {
+    margin-left: 85px;
+}
+.method_description p:last-child {
+    margin: 0;
+}
+.property-name {
+  font-weight: bold;
+}
+.property-type, .property-required {
+font-style: italic;
+}
+
+.panel-heading p {
+    display: inline;
+}
+    </style>
+</head>
+
+<body data-spy="scroll" data-target="#sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9" role="main">
+                <div class="page-header">
+                    <h1>Assignment Command documentation <small>version v1</small></h1>
+                    <p><a href="http://localhost:8080/assignment-command-api/command/api/rest/assignment">http://localhost:8080/assignment-command-api/command/api/rest/assignment</a></p>
+
+                    
+                </div>
+                <h2>Resources</h2>
+                
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 id="d1d35e55c4e3f1a45d4eee8f96a625af" class="panel-title">
+                                
+                                
+                                    /assignments
+                                
+                            </h3>
+                        </div>
+
+                        <div class="panel-body">
+                            
+                                <div class="resource-description">
+                                    <p>Post to this endpoint to create an assignment.</p>
+                                </div>
+                            
+
+                            <div class="panel-group">
+                                <div class="panel panel-white">
+
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="parent"></span>/assignments
+        </h4>
+    </div>
+
+    <div id="panel_d1d35e55c4e3f1a45d4eee8f96a625af" class="panel-collapse">
+        <div class="panel-body">
+            <div class="list-group">
+                
+                    <div class="panel panel-default">
+    <div class="panel-heading">
+            <a data-toggle="collapse" href="#d1d35e55c4e3f1a45d4eee8f96a625af_post">
+                <span class="badge badge_post">post</span>
+            </a>
+            &nbsp;<p>... (mapping):  requestType: application/vnd.assignment.command.add-assignment+json  name: assignment.command.add-assignment (mapping):  requestType: application/vnd.assignment.command.remove-assignment+json  name: assignment.command.remove-assignment (mapping):  requestType: application/vnd.assignment.command.assign-charging-lawyer-to-review+json  name: assignment.command.assign-charging-lawyer-to-review ...</p>
+    </div>
+    <div id="d1d35e55c4e3f1a45d4eee8f96a625af_post" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a href="#d1d35e55c4e3f1a45d4eee8f96a625af_post_request" data-toggle="tab">Request</a>
+    </li>
+    
+        <li>
+            <a href="#d1d35e55c4e3f1a45d4eee8f96a625af_post_response" data-toggle="tab">Response</a>
+        </li>
+    
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="d1d35e55c4e3f1a45d4eee8f96a625af_post_request">
+        
+
+        
+
+        
+
+        
+            <h3>Body</h3>
+            
+                <div class="body-type">
+    <strong class="body-label">Type:</strong> <code id="key">application/vnd.assignment.command.add-assignment+json</code>
+</div>
+
+
+<div class="body-schema">
+    <strong class="body-label">Schema:</strong>
+   <pre><code class="json">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "id": {
+      "id": "id",
+      "type": "string"
+    },
+    "version": {
+      "id": "version",
+      "type": "integer"
+    },
+    "domainObjectId": {
+      "id": "domainObjectId",
+      "type": "string"
+    },
+    "assignmentNatureType": {
+      "id": "assignmentNatureType",
+      "type": "string"
+    },
+    "assignee": {
+      "id": "assignee",
+      "type": ["string", "null"]
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "domainObjectId",
+    "assignmentNatureType"
+  ]
+}</code></pre>
+</div>
+
+
+<div class="body-example">
+    <strong class="body-label">Example:</strong>
+    <pre><code class="json">{
+  &quot;id&quot;: &quot;assignment-Id&quot;,
+  &quot;version&quot;: 0,
+  &quot;domainObjectId&quot;: &quot;f1529604-5961-468b-b97f-3a51406d1e0d&quot;,
+  &quot;assignmentNatureType&quot;: &quot;PRE_CHARGE_REVIEW&quot;,
+  &quot;assignee&quot;: &quot;8c53d6a5-2806-4c21-9575-0cf233bc2cf4&quot;
+}</code></pre>
+</div>
+
+
+            
+                <div class="body-type">
+    <strong class="body-label">Type:</strong> <code id="key">application/vnd.assignment.command.remove-assignment+json</code>
+</div>
+
+
+<div class="body-schema">
+    <strong class="body-label">Schema:</strong>
+   <pre><code class="json">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "assignmentNatureType": {
+      "id": "assignmentNatureType",
+      "type": "string"
+    },
+    "domainObjectId": {
+      "id": "domainObjectId",
+      "type": "string"
+    }
+  },
+  "required": [
+    "assignmentNatureType",
+    "domainObjectId"
+  ]
+}</code></pre>
+</div>
+
+
+<div class="body-example">
+    <strong class="body-label">Example:</strong>
+    <pre><code class="json">{
+  &quot;assignmentNatureType&quot;: &quot;for-decision&quot;,
+  &quot;domainObjectId&quot;: &quot;f9486491-286a-4e71-8607-9025e8f58a44&quot;
+}</code></pre>
+</div>
+
+
+            
+                <div class="body-type">
+    <strong class="body-label">Type:</strong> <code id="key">application/vnd.assignment.command.assign-charging-lawyer-to-review+json</code>
+</div>
+
+
+<div class="body-schema">
+    <strong class="body-label">Schema:</strong>
+   <pre><code class="json">{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "assignmentId": {
+      "type": "string"
+    },
+    "caseId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "assignmentId",
+    "caseId"
+  ]
+}</code></pre>
+</div>
+
+
+<div class="body-example">
+    <strong class="body-label">Example:</strong>
+    <pre><code class="json">{
+  &quot;assignmentId&quot; : &quot;6db934e4-731b-4db0-b3ce-bcd2c89d1e3e&quot;,
+  &quot;caseId&quot; : &quot;6db934e4-731b-4db0-b3ce-bcd2c89d1e3e&quot;
+}</code></pre>
+</div>
+
+
+            
+        
+    </div>
+
+    
+        <div class="tab-pane" id="d1d35e55c4e3f1a45d4eee8f96a625af_post_response">
+            
+                <h2>HTTP status code <a href="http://httpstatus.es/202" target="_blank">202</a></h2>
+<p>OK</p>
+
+
+    
+
+
+
+            
+                <h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2>
+<p>Internal Server Error</p>
+
+
+    
+
+
+
+            
+        </div>
+    
+</div>
+        </div>
+    </div>
+</div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                
+                
+            </div>
+
+            <div class="col-md-3">
+                <div id="sidebar" class="hidden-print affix" role="complementary">
+                    <ul class="nav nav-pills nav-stacked">
+                        
+                            <li>
+                                <a href="#d1d35e55c4e3f1a45d4eee8f96a625af">
+                                    
+                                    
+                                        /assignments
+                                    
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

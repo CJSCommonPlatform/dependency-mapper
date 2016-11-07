@@ -17,6 +17,6 @@ The Dependency Mapper project is made up of two separate parts:
  * dmx.contexts.map.file: Directory location AND file name where generated file will be published, default is `/opt/contexts.json`
  * dmx.raml.reports.dir: RAML report dir, default is `/opt/raml-reports/`
 
- e.g.: `java -Ddmx.raml.reports.dir=/opt/any/ -Ddmx.contexts.dir=/opt/dmx -dmx.contexts.map.file=/opt/dmx/contexts1.json -jar target/dependency-mapper.jar
+ e.g.: `java -Ddmx.contexts.dir=/opt/dmx/ -Ddmx.raml.reports.dir=/opt/any/ -Ddmx.contexts.map.file=/opt/dmx/contexts1.json -jar target/dependency-mapper.jar
 `
 

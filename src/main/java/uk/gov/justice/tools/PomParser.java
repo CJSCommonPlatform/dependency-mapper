@@ -39,14 +39,19 @@ public class PomParser {
         version = StringUtils.isNotBlank(version) ? version : model.getParent().getVersion();
 
         MavenProject project = new MavenProject(model);
-        Properties parentPomProperties = fetchParentPomProperties(pom);
 
         //uses
         List<MicroService> usesMicroServices = new ArrayList<MicroService>();
         Build build = model.getBuild();
         if (build != null) {
             build.getPlugins().forEach(plugin -> plugin.getDependencies()
-                    .forEach(dependency -> addDependency(usesMicroServices, dependency, project, parentPomProperties)));
+                    .forEach(dependency -> {
+                        try {
+                            addDependency(usesMicroServices, dependency, project, pom);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }));
         }
 
         return new MicroServiceBuilder()
@@ -56,13 +61,13 @@ public class PomParser {
                 .build();
     }
 
-    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, MavenProject project, Properties parentProperties) {
+    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, MavenProject project, File pom) throws Exception {
         if (dependency != null && dependency.getClassifier() != null && dependency.getClassifier().equals("raml")) {
-            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), project, parentProperties)).build());
+            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), project, pom)).build());
         }
     }
 
-    private String fetchDependencyVersion(String dependencyVersion, MavenProject mavenProject, Properties parentPomProps) {
+    private String fetchDependencyVersion(String dependencyVersion, MavenProject mavenProject, File pom) throws Exception {
 
         // Check if no version specified
         if(dependencyVersion == null) {
@@ -72,10 +77,10 @@ public class PomParser {
             if(versionFromPom.equals(PROJECT_VERSION)) {
                     return mavenProject.getVersion();
             }else {
-                Object propertyVersionValue = mavenProject.getProperties().get(versionFromPom);
-                //deal with variable version from parent
-                propertyVersionValue = propertyVersionValue == null && parentPomProps.containsKey(versionFromPom) ?
-                        parentPomProps.getProperty(versionFromPom).toString() : propertyVersionValue;
+                String propertyVersionValue = mavenProject.getProperties().getProperty(versionFromPom);
+                //deal with variable version from parents
+                propertyVersionValue = propertyVersionValue == null  ?
+                        fetchVersionFromParents(pom, versionFromPom) : propertyVersionValue;
                 return propertyVersionValue != null ? propertyVersionValue.toString() : dependencyVersion;
             }
         } else {
@@ -115,5 +120,28 @@ public class PomParser {
             }
         }
         return props;
+    }
+
+    /**
+     * This function will work out version value from either Parent or Grand parent level POM properties if version
+     * variable is found
+     *
+     * @param somePom
+     * @param versionKey
+     * @return
+     * @throws Exception
+     */
+    public String fetchVersionFromParents(File somePom, String versionKey) throws Exception {
+        Properties parentPomProperties = fetchParentPomProperties(somePom);
+        if(parentPomProperties.containsKey(versionKey))
+            return parentPomProperties.getProperty(versionKey);
+        else{
+            File parent = somePom.getParentFile().getParentFile();
+            Properties grandParentProps = fetchParentPomProperties(new File(parent.getAbsolutePath().concat(File.separator).concat("pom.xml")));
+            if(grandParentProps.containsKey(versionKey)){
+                return grandParentProps.getProperty(versionKey);
+            }
+        }
+        return versionKey;
     }
 }

@@ -74,7 +74,7 @@ public class PomParser {
             }else {
                 Object propertyVersionValue = mavenProject.getProperties().get(versionFromPom);
                 //deal with variable version from parent
-                propertyVersionValue = propertyVersionValue == null ?
+                propertyVersionValue = propertyVersionValue == null && parentPomProps.containsKey(versionFromPom) ?
                         parentPomProps.getProperty(versionFromPom).toString() : propertyVersionValue;
                 return propertyVersionValue != null ? propertyVersionValue.toString() : dependencyVersion;
             }

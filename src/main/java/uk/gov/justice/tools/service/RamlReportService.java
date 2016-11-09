@@ -23,10 +23,10 @@ public class RamlReportService {
 
     public void generateRamlReport() throws IOException {
         FileFinder fileFinder = new FileFinder(config);
-        List<File> pomFiles = fileFinder.findRamlFiles();
+        List<File> ramlFiles = fileFinder.findRamlFiles();
 
         RamlFileToHtml ramlFileToHtml = new RamlFileToHtml(config);
-        pomFiles.stream().map(ramlFileToHtml::convert).forEach(writeHtmlToFile);
+        ramlFiles.stream().map(ramlFileToHtml::convert).forEach(writeHtmlToFile);
 
     }
 

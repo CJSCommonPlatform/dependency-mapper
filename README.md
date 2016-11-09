@@ -3,7 +3,7 @@
 The Dependency Mapper project is made up of two separate parts:
 
  * The Java back-end to generate the json
- * The shell script to generate the RAML documents as an HTML.
+ * The Java back-end to generate the RAML documents as an HTML.
 
 (These technologies were chosen based on the current needs of the system - especially the shell script may mature to need something more robust.)
 

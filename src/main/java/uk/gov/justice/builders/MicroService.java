@@ -7,11 +7,13 @@ public class MicroService {
     private String name;
     private String version;
     private List<MicroService> uses;
+    private String ramlDocument;
 
-    public MicroService(String name, String version, List<MicroService> uses) {
+    public MicroService(String name, String version, List<MicroService> uses, String ramlDocument) {
         this.name = name;
         this.version = version;
         this.uses = uses;
+        this.ramlDocument = ramlDocument;
     }
 
     public MicroService() {
@@ -68,5 +70,13 @@ public class MicroService {
 
     public void setUses(List<MicroService> uses) {
         this.uses = uses;
+    }
+
+    public String getRamlDocument() {
+        return ramlDocument;
+    }
+
+    public void setRamlDocument(String ramlDocument) {
+        this.ramlDocument = ramlDocument;
     }
 }

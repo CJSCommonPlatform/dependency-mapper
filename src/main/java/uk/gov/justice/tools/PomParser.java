@@ -1,14 +1,18 @@
 package uk.gov.justice.tools;
 
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import uk.gov.justice.builders.MicroService;
 import uk.gov.justice.builders.MicroServiceBuilder;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,14 +24,13 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 
 public class PomParser {
 
+    private Logger logger = Logger.getLogger(PomParser.class.getName());
     private static String VERSION_NOT_AVAILABLE = "NA";
     private static String PROJECT_VERSION = "project.version";
 
 
     public MicroService parse(File pom) throws Exception {
-        MavenXpp3Reader reader = new MavenXpp3Reader();
-        Model model = reader.read(new FileReader(pom));
-        model.setPomFile(pom);
+        Model model = extractModel(pom);
 
         //name
         String artifactId = model.getArtifactId();
@@ -47,9 +50,9 @@ public class PomParser {
             build.getPlugins().forEach(plugin -> plugin.getDependencies()
                     .forEach(dependency -> {
                         try {
-                            addDependency(usesMicroServices, dependency, project, pom);
+                            addDependency(usesMicroServices, dependency, model);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            logger.log(Level.WARNING, e.getLocalizedMessage());
                         }
                     }));
         }
@@ -61,13 +64,22 @@ public class PomParser {
                 .build();
     }
 
-    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, MavenProject project, File pom) throws Exception {
+    private Model extractModel(File pom) throws IOException, XmlPullParserException {
+        MavenXpp3Reader reader = new MavenXpp3Reader();
+        Model model = reader.read(new FileReader(pom));
+        model.setPomFile(pom);
+        return model;
+    }
+
+    private void addDependency(List<MicroService> usesMicroServices, Dependency dependency, Model model) throws Exception {
         if (dependency != null && dependency.getClassifier() != null && dependency.getClassifier().equals("raml")) {
-            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), project, pom)).build());
+            usesMicroServices.add(new MicroServiceBuilder().withName(dependency.getArtifactId()).withVersion(fetchDependencyVersion(dependency.getVersion(), model)).build());
         }
     }
 
-    private String fetchDependencyVersion(String dependencyVersion, MavenProject mavenProject, File pom) throws Exception {
+    private String fetchDependencyVersion(String dependencyVersion, Model model) throws Exception {
+
+        MavenProject mavenProject = new MavenProject(model);
 
         // Check if no version specified
         if(dependencyVersion == null) {
@@ -80,7 +92,7 @@ public class PomParser {
                 String propertyVersionValue = mavenProject.getProperties().getProperty(versionFromPom);
                 //deal with variable version from parents
                 propertyVersionValue = propertyVersionValue == null  ?
-                        fetchVersionFromParents(pom, versionFromPom) : propertyVersionValue;
+                        fetchVersionFromParents(model.getPomFile(), versionFromPom) : propertyVersionValue;
                 return propertyVersionValue != null ? propertyVersionValue.toString() : dependencyVersion;
             }
         } else {
@@ -111,9 +123,7 @@ public class PomParser {
             if(parent.isDirectory()){
                 File parentPom = new File(parent.getAbsolutePath().concat(File.separator).concat("pom.xml"));
                 if (parentPom.isFile() && parentPom.exists()) {
-                    MavenXpp3Reader reader = new MavenXpp3Reader();
-                    Model model = reader.read(new FileReader(parentPom));
-                    model.setPomFile(parentPom);
+                    Model model = extractModel(parentPom);
                     MavenProject project = new MavenProject(model);
                     return project.getProperties();
                 }

@@ -8,6 +8,7 @@ public class MicroServiceBuilder {
     private String name;
     private String version;
     private List<MicroService> uses = Collections.emptyList();
+    private String ramlDocument;
 
     public MicroServiceBuilder(String name, String version) {
         this.name = name;
@@ -45,7 +46,16 @@ public class MicroServiceBuilder {
         return this;
     }
 
+    public String getRamlDocument() {
+        return ramlDocument;
+    }
+
+    public MicroServiceBuilder withRamlDocument(String ramlDocument) {
+        this.ramlDocument = ramlDocument;
+        return this;
+    }
+
     public MicroService build() {
-        return new MicroService(getName(), getVersion(), getUses());
+        return new MicroService(getName(), getVersion(), getUses(), getRamlDocument());
     }
 }

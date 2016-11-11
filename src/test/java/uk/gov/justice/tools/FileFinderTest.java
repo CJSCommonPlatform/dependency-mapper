@@ -21,7 +21,7 @@ public class FileFinderTest {
     public void setup() {
         Config config = new Config();
         config.setRootDirectory(ROOT_FOLDER);
-        testObj = new FileFinder(config);
+        testObj = new FileFinder(ROOT_FOLDER);
     }
 
     @Test

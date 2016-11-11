@@ -12,26 +12,26 @@ public class FileFinder {
 
     public static final String POM_XML = "pom.xml";
     public static final String RAML_EXTENSION = ".raml";
-    private Config config;
+    private String rootDirectory;
 
-    public FileFinder(Config config) {
-        this.config = config;
+    public FileFinder(String rootFolder) {
+        this.rootDirectory = rootFolder;
     }
 
     public List<File> findPomFiles() throws IOException {
-        return findFilesMatchingFilename(getConfig().getRootDirectory(), POM_XML);
+        return findFilesMatchingFilename(getRootDirectory(), POM_XML);
     }
 
     public List<File> findRamlFiles() throws IOException {
-        return findFilesMatchingFilename(getConfig().getRootDirectory(), RAML_EXTENSION);
+        return findFilesMatchingFilename(getRootDirectory(), RAML_EXTENSION);
     }
 
-    public Config getConfig() {
-        return config;
+    public String getRootDirectory() {
+        return rootDirectory;
     }
 
-    public void setConfig(Config config) {
-        this.config = config;
+    public void setRootDirectory(String rootDirectory) {
+        this.rootDirectory = rootDirectory;
     }
 
     private List<File> findFilesMatchingFilename(String path, String filenamePattern) throws IOException {

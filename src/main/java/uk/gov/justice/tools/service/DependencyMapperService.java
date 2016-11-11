@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import uk.gov.justice.builders.MicroService;
 import uk.gov.justice.builders.MicroServiceMapBuilder;
 import uk.gov.justice.tools.*;
+import uk.gov.justice.tools.converter.WriteJson;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class DependencyMapperService {
     }
 
     public String generate() throws Exception {
-        FileFinder fileFinder = new FileFinder(config);
+        FileFinder fileFinder = new FileFinder(config.getRootDirectory());
         List<File> pomFiles = fileFinder.findPomFiles();
 
         if (pomFiles.isEmpty())
@@ -40,6 +41,13 @@ public class DependencyMapperService {
 
         ApplicationMap applicationMap = new ApplicationMap(builder.generate());
 
-        return mapper.writeValueAsString(applicationMap);
+        String jsonPayload = mapper.writeValueAsString(applicationMap);
+        return jsonPayload;
+    }
+
+    public void generateDependencyMapData() throws Exception {
+        //write the map
+        WriteJson writeJson = new WriteJson(config);
+        writeJson.convert(generate());
     }
 }

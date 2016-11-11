@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class RamlFileToHtmlTest {
 
     private static final String RAML_FOLDER = "src/test/resources/raml/";
@@ -21,10 +20,7 @@ public class RamlFileToHtmlTest {
     public void convert() throws Exception {
         String expectedHtmlText = new String(Files.readAllBytes(Paths.get("src/test/resources/raml/tohtml/assignment-command-api.html")));
 
-        Config config = new Config();
-        config.setRamlReportDirectory(RAML_FOLDER);
-
-        RamlFileToHtml testObj = new RamlFileToHtml(config);
+        RamlFileToHtml testObj = new RamlFileToHtml(RAML_FOLDER);
 
         Html result = testObj.convert(new File(RAML_FOLDER + "assignment-command-api.raml"));
 

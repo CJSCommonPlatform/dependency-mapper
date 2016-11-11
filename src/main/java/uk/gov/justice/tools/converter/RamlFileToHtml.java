@@ -12,10 +12,10 @@ import java.io.InputStream;
 import raml.tools.html.Raml2HtmlConverter;
 
 public class RamlFileToHtml implements Converter<Html, File> {
-    private Config config;
+    private String reportOutputDirectory;
 
-    public RamlFileToHtml(Config config) {
-        this.config = config;
+    public RamlFileToHtml(String reportOutputDirectory) {
+        this.reportOutputDirectory = reportOutputDirectory;
     }
 
     @Override
@@ -29,6 +29,10 @@ public class RamlFileToHtml implements Converter<Html, File> {
         Raml2HtmlConverter raml2HtmlConverter = new Raml2HtmlConverter();
         raml2HtmlConverter.withRamlBasePath(file.getParent());
         return new Html(raml2HtmlConverter.convert(ramlInput, new ByteArrayOutputStream()).toString(),
-                config.getRamlReportDirectory() + file.getName().replace("raml", "html"));
+                getReportOutputDirectory() + file.getName().replace("raml", "html"));
+    }
+
+    public String getReportOutputDirectory() {
+        return reportOutputDirectory;
     }
 }

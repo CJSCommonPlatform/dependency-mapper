@@ -24,11 +24,8 @@ public class Bootstrap {
         config.setOutputFilePath(OUTPUT_FILE_PATH);
         config.setRamlReportDirectory(RAML_REPORT_DIR);
 
-        //prepare DependencyMapper service
         DependencyMapperService dependencyMapperService = new DependencyMapperService(config);
-
-        WriteJson writeJson = new WriteJson(config);
-        writeJson.convert(dependencyMapperService.generate());
+        dependencyMapperService.generateDependencyMapData();
 
         RamlReportService ramlReportService = new RamlReportService(config);
         ramlReportService.generateRamlReport();

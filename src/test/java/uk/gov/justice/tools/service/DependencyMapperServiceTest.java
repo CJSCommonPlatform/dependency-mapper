@@ -2,7 +2,6 @@ package uk.gov.justice.tools.service;
 
 import org.junit.Test;
 import uk.gov.justice.tools.Config;
-import uk.gov.justice.tools.service.DependencyMapperService;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,7 +17,6 @@ public class DependencyMapperServiceTest {
 
         String actualJson = service.generate();
         assertTrue(!actualJson.isEmpty());
-        System.out.println(actualJson);
     }
 
     @Test
@@ -32,4 +30,5 @@ public class DependencyMapperServiceTest {
         String actualJson = service.generate();
         assertTrue(actualJson.isEmpty());
     }
+
 }

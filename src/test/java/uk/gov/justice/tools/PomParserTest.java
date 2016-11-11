@@ -319,6 +319,12 @@ public class PomParserTest {
         actualMicroService.uses().forEach(dep -> assertThat(dep.getVersion(), is(expected_dep_version)));
     }
 
+    @Test
+    public void shouldProvideMicroServiceRamlDocName(){
+        PomParser actualPomParser = new PomParser();
+
+    }
+
     private void assertDependenciesVersion(MicroService actualMicroService) {
         actualMicroService.uses().forEach(this::assertDependency);
     }

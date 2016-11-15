@@ -22,12 +22,12 @@ public class MicroServicesSerialiserTest {
     @Test
     public void shouldCreateJsonFromMicroServices() throws IOException {
 
-        MicroService msA = new MicroServiceBuilder().withName("A").withVersion("4.0").build();
-        MicroService msB = new MicroServiceBuilder().withName("B").withVersion("5.0").build();
-        MicroService msC = new MicroServiceBuilder().withName("C").withVersion("6.0").build();
+        MicroService msA = new MicroServiceBuilder().withName("A").withVersion("4.0").withServicePomVersion("1.0.0").build();
+        MicroService msB = new MicroServiceBuilder().withName("B").withVersion("5.0").withServicePomVersion("1.0.1").build();
+        MicroService msC = new MicroServiceBuilder().withName("C").withVersion("6.0").withServicePomVersion("1.0.2").build();
 
-        MicroService msD = new MicroServiceBuilder().withName("D").withVersion("7.0").build();
-        MicroService msE = new MicroServiceBuilder().withName("E").withVersion("8.0").build();
+        MicroService msD = new MicroServiceBuilder().withName("D").withVersion("7.0").withServicePomVersion("1.0.3").build();
+        MicroService msE = new MicroServiceBuilder().withName("E").withVersion("8.0").withServicePomVersion("1.0.4").build();
 
         Map<MicroService, Set<MicroService>> msMap = new HashMap<>();
 

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import uk.gov.justice.builders.MicroService;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 public class CustomSerialiser extends StdSerializer<ApplicationMap> {
@@ -27,10 +26,13 @@ public class CustomSerialiser extends StdSerializer<ApplicationMap> {
         jsonGenerator.writeFieldName("microServices");
         jsonGenerator.writeStartArray();
         for (MicroService microService : applicationMap.getMicroServices().keySet()) {
+
             jsonGenerator.writeStartObject();
             jsonGenerator.writeStringField("microService", microService.getName());
             jsonGenerator.writeStringField("version", microService.getVersion());
             jsonGenerator.writeStringField("ramlDocument", microService.getRamlDocument() == null ? "NA" : microService.getRamlDocument());
+            jsonGenerator.writeStringField("servicePomVersion", microService.getServicePomVersion());
+
             jsonGenerator.writeFieldName("consumedBy");
 
             jsonGenerator.writeStartArray();

@@ -24,6 +24,7 @@ public class PomParserTest {
     private static final String DEPENDENCY_VERSIONS_SPECIFIED_FOLDER = "dep_versions_specified";
     private static final String PROJECT_VERSION_SPECIFIED_FOLDER = "project_version_specified";
     private static final String PARENT_HAVING_VERSION_VARIABLES_CHILD_FOLDER = "parent_has_version_variables/branch";
+    private static final String PARENT_VERSION_WITH_SERVICE_LEVEL_PARENT_POM = "parent_has_version_variables";
     private static final String GRAND_PARENT_HAVING_VERSION_VARIABLES_CHILD_FOLDER = "grand_parent_has_version_variables/parent/child";
     private static final String PEOPLE_CONTEXT_VERSION = "2.0.23";
     private static final String MATERIAL_CONTEXT_VERSION = "2.0.18";
@@ -317,6 +318,30 @@ public class PomParserTest {
 
         assertThat(actualMicroService.uses(), is(expected));
         actualMicroService.uses().forEach(dep -> assertThat(dep.getVersion(), is(expected_dep_version)));
+    }
+
+    @Test
+    public void shouldResolveServiceParentPomVersionVariable() throws Exception {
+        PomParser actualPomParser = new PomParser();
+
+        String expectedServiceParentPomVerison = "2.0.27";
+
+        File somePom = getFileFromTestResources(PARENT_VERSION_WITH_SERVICE_LEVEL_PARENT_POM);
+        MicroService actualMicroService = actualPomParser.parse(somePom);
+
+        assertThat(actualMicroService.getServicePomVersion(), is(expectedServiceParentPomVerison));
+    }
+
+    @Test
+    public void shouldResolveServiceParentPomVersionVariableFromParentPom() throws Exception {
+        PomParser actualPomParser = new PomParser();
+
+        String expectedServiceParentPomVerison = "2.0.27";
+
+        File somePom = getFileFromTestResources(PARENT_HAVING_VERSION_VARIABLES_CHILD_FOLDER);
+        MicroService actualMicroService = actualPomParser.parse(somePom);
+
+        assertThat(actualMicroService.getServicePomVersion(), is(expectedServiceParentPomVerison));
     }
 
     private void assertDependenciesVersion(MicroService actualMicroService) {

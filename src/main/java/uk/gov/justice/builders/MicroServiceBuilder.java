@@ -9,6 +9,7 @@ public class MicroServiceBuilder {
     private String version;
     private List<MicroService> uses = Collections.emptyList();
     private String ramlDocument;
+    private String servicePomVersion;
 
     public MicroServiceBuilder(String name, String version) {
         this.name = name;
@@ -55,7 +56,14 @@ public class MicroServiceBuilder {
         return this;
     }
 
+    public String getServicePomVersion() { return servicePomVersion; }
+
+    public MicroServiceBuilder withServicePomVersion(String servicePomVersion) {
+        this.servicePomVersion = servicePomVersion;
+        return this;
+    }
+
     public MicroService build() {
-        return new MicroService(getName(), getVersion(), getUses(), getRamlDocument());
+        return new MicroService(getName(), getVersion(), getUses(), getRamlDocument(), getServicePomVersion());
     }
 }

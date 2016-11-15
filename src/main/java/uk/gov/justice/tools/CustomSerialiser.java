@@ -30,6 +30,7 @@ public class CustomSerialiser extends StdSerializer<ApplicationMap> {
             jsonGenerator.writeStartObject();
             jsonGenerator.writeStringField("microService", microService.getName());
             jsonGenerator.writeStringField("version", microService.getVersion());
+            jsonGenerator.writeStringField("ramlDocument", microService.getRamlDocument() == null ? "NA" : microService.getRamlDocument());
             jsonGenerator.writeFieldName("consumedBy");
 
             jsonGenerator.writeStartArray();

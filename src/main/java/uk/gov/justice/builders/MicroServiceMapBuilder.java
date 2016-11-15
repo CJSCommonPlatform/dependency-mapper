@@ -26,7 +26,11 @@ public class MicroServiceMapBuilder {
         if (!microServiceMap.containsKey(microService)) {
             microServiceMap.put(microService, Collections.EMPTY_SET);
         } else {
-            MicroService actualMicroService = new MicroServiceBuilder().withName(microService.getName()).withVersion(microService.getVersion()).withUses(microService.uses()).build();
+            MicroService actualMicroService = new MicroServiceBuilder().withName(microService.getName())
+                    .withVersion(microService.getVersion())
+                    .withUses(microService.uses())
+                    .withRamlDocument(microService.getRamlDocument())
+                    .build();
             Set<MicroService> alreadyRegisteredConsumers = microServiceMap.get(microService);
             microServiceMap.remove(actualMicroService);
             microServiceMap.put(actualMicroService, alreadyRegisteredConsumers);

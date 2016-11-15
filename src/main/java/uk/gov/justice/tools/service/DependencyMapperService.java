@@ -8,6 +8,7 @@ import uk.gov.justice.tools.*;
 import uk.gov.justice.tools.converter.WriteJson;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class DependencyMapperService {
         this.config = config;
     }
 
-    public String generate() throws Exception {
+    String generate() throws Exception {
         FileFinder fileFinder = new FileFinder(config.getRootDirectory());
         List<File> pomFiles = fileFinder.findPomFiles();
 
@@ -31,6 +32,9 @@ public class DependencyMapperService {
         for (File pomFile : pomFiles) {
             microServices.add(pomParser.parse(pomFile));
         }
+        //update RamlDoc references
+        updateRamlDocumentReference(microServices);
+
         MicroServiceMapBuilder builder = new MicroServiceMapBuilder(microServices);
 
         SimpleModule module = new SimpleModule();
@@ -49,5 +53,19 @@ public class DependencyMapperService {
         //write the map
         WriteJson writeJson = new WriteJson(config);
         writeJson.convert(generate());
+    }
+
+    public void updateRamlDocumentReference(List<MicroService> microServices) throws IOException {
+        FileFinder finder = new FileFinder(config.getRootDirectory());
+        List<File> ramlFiles = finder.findRamlFiles();
+
+        microServices.forEach(ms -> {
+            ms.setRamlDocument("NA");
+            ramlFiles.forEach(file -> {
+                if(file.getName().startsWith(ms.getName())){
+                    ms.setRamlDocument(file.getName().replaceAll("raml","html"));
+                }
+            });
+        });
     }
 }

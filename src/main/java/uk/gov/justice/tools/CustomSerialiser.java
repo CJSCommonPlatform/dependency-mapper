@@ -23,7 +23,6 @@ public class CustomSerialiser extends StdSerializer<ApplicationMap> {
     public void serialize(ApplicationMap applicationMap, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("monkey","baboon");
         jsonGenerator.writeFieldName("microServices");
         jsonGenerator.writeStartArray();
         for (MicroService microService : applicationMap.getMicroServices().keySet()) {

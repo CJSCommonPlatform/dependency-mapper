@@ -1,4 +1,10 @@
-# Dependency Mapper [![Build Status](https://travis-ci.org/CJSCommonPlatform/dependency-mapper.svg?branch=master)](https://github.com/CJSCommonPlatform/dependency-mapper)
+# Dependency Mapper 
+
+## Deprecated
+
+_**Pull requests against this project have been disabled. Please contact one of the project owners for emergency bug fixes on this version**_
+
+[![Build Status](https://travis-ci.org/CJSCommonPlatform/dependency-mapper.svg?branch=master)](https://github.com/CJSCommonPlatform/dependency-mapper)
 
 The Dependency Mapper project is made up of two separate parts:
 
